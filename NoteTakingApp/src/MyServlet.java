@@ -19,10 +19,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapperBuilder;
+import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import nta.model.DatabaseAccess;
+import nta.model.TemplateProcessor;
 
 /**
  * Servlet implementation class MyServlet
@@ -30,9 +35,16 @@ import freemarker.template.TemplateExceptionHandler;
 @WebServlet("/MyServlet")
 public class MyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+    
+	private String templateDir = "/WEB-INF/templates";
 	Configuration cfg;
-	String templateDir = "/WEB-INF/templates/";
-       
+	private TemplateProcessor processor;
+	private DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28);
+	private SimpleHash root = new SimpleHash(db.build());
+	private HttpSession session;
+	DatabaseAccess dbaccess = new DatabaseAccess();
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -68,6 +80,8 @@ public class MyServlet extends HttpServlet {
 
     	// Wrap unchecked exceptions thrown during template processing into TemplateException-s.
     	cfg.setWrapUncheckedExceptions(true);
+    	
+    	processor = new TemplateProcessor(templateDir, getServletContext());
     }
 
 	/**
@@ -75,13 +89,58 @@ public class MyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		PrintWriter out = response.getWriter();
+		//this string is null if the signin button isn't pressed
+		String signin = request.getParameter("signIn");
+		
+		if(signin != null) {
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			boolean loginvalid = false;
+			
+			String welcome = "";
+			Integer accessCount;
+
+
+				//calls authentication method in Database Access
+			loginvalid = dbaccess.authenticate(username,password);
+			System.out.println(loginvalid);
+	
+			//For session tracking messages in the future. Welcome or welcome back, He will want this im sure			
+			if(loginvalid == true) {
+				session = request.getSession();
+				synchronized(session) { 
+					accessCount = (Integer)session.getAttribute("accessCount");
+					if(accessCount == null) {
+						accessCount = 0;
+						welcome = "Welcome, for the first time";
+					} else {
+						welcome = "Welcome back, ";
+						accessCount = accessCount + 1;
+					}
+					session.setAttribute("accessCount", accessCount);
+				}
+				
+				root.put("username", username); 
+
+//		Not necessary right now but will be helpful with session tracking				
+//				root.put("welcome", welcome);
+//				root.put("accessCount", accessCount); 
+				
+				loadSignedInPage(request,response);
+				
+			} else {
+				loadFailedLoginPage(request,response); 
+			}
+		}
+		
+		
+		
+		
+/*		PrintWriter out = response.getWriter();
 		String dbusername = "root";
 		String dbpassword = "given_password";
 		String username = request.getParameter("username");
 		String userpassword = request.getParameter("password");
-		//this string is null if the signin button isn't pressed
-		String signin = request.getParameter("signIn");
 		String select = "select * from users";
 		
 		if(signin != null)
@@ -196,6 +255,17 @@ public class MyServlet extends HttpServlet {
 		    }
 		}
 		return false;
+	*/
+	}
+
+	private void loadFailedLoginPage(HttpServletRequest request, HttpServletResponse response) {
+		//maybe have a failed login page here or something
+		
+	}
+
+	private void loadSignedInPage(HttpServletRequest request, HttpServletResponse response) {
+		String templatename = "signedin.ftl";
+		processor.processTemplate(templatename,root,request,response);
 	}
 
 	/**
@@ -206,8 +276,9 @@ public class MyServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	class User{
+/*	class User{
 		public String username;
 		public String password;
 	}
+	*/
 }
