@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="WebContent"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/WildFly 13.0 Runtime">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
@@ -13,7 +14,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Dalton/Desktop/apache-freemarker-2.3.28-bin/freemarker.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Dalton/Downloads/mysql-connector-java-8.0.12/mysql-connector-java-8.0.12.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/freemarker.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-8.0.12.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
