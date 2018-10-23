@@ -19,10 +19,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapperBuilder;
+import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import nta.model.DatabaseAccess;
+import nta.model.TemplateProcessor;
 
 /**
  * Servlet implementation class MyServlet
@@ -30,9 +35,16 @@ import freemarker.template.TemplateExceptionHandler;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+    
+	private String templateDir = "/WEB-INF/templates";
 	Configuration cfg;
-	String templateDir = "/WEB-INF/templates/";
-       
+	private TemplateProcessor processor;
+	private DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28);
+	private SimpleHash root = new SimpleHash(db.build());
+	private HttpSession session;
+	DatabaseAccess dbaccess = new DatabaseAccess();
+	boolean incorrectUsernameOrPassword = false;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -68,17 +80,15 @@ public class Login extends HttpServlet {
 
     	// Wrap unchecked exceptions thrown during template processing into TemplateException-s.
     	cfg.setWrapUncheckedExceptions(true);
+    	
+    	processor = new TemplateProcessor(templateDir, getServletContext());
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		PrintWriter out = response.getWriter();
-		String dbusername = "root";
-		String dbpassword = "given_password";
-		
+	{	 
 		//submit button for sign in
 		String signin = request.getParameter("signIn");
 		
@@ -102,162 +112,48 @@ public class Login extends HttpServlet {
 		
 		if(signin != null)
 		{
-			String select = "select * from users";
-			if(searchForUser(username, userpassword, select, dbusername, dbpassword, "notetakingapp", out))
+			if(dbaccess.authenticate(username,userpassword))
 			{
-				Map<String, Object> root = new HashMap<>();
-		        //root.put("results", );
-				Template template;
-				try {
-					template = cfg.getTemplate("home.ftl");
-					template.process(root, out);
-				} catch (Exception e) {
-					out.println(e.getMessage());
-				}
+				loadHomePage(request,response);
 			}
 			else
-			{
-				Map<String, Object> root = new HashMap<>();
-		        root.put("incorrectUsernameOrPassword", true);
-				Template template;
-				try {
-					template = cfg.getTemplate("signinpage.ftl");
-					template.process(root, out);
-				} catch (Exception e) {
-					out.println(e.getMessage());
-				}
+			{   
+				incorrectUsernameOrPassword = true;
+				root.put("incorrectUsernameOrPassword", incorrectUsernameOrPassword);
+		        loadSignInPage(request,response);
 			}
 		}
 		else if(signup != null)
 		{
-			Map<String, Object> root = new HashMap<>();
-	        //root.put("results", );
-			Template template;
-			try {
-				template = cfg.getTemplate("signuppage.ftl");
-				template.process(root, out);
-			} catch (Exception e) {
-				out.println(e.getMessage());
-			}
+			
+			loadSignUpPage(request,response);
 		}
 		else if(createuser != null)
 		{
-			try
-			{
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/notetakingapp?", "root", "given_password");
-				Statement stmt = conn.createStatement();
-				String query = "insert into users values(" + 0 + ",'"+ newUsername + "','" + newPassword + "','" 
-						+ email + "','" + firstName + "','" + lastName + "')";
-				stmt.executeUpdate(query);
-				
-				Template template;
-				Map<String, Object> root = new HashMap<>();
-				template = cfg.getTemplate("signinpage.ftl");
-				template.process(root, out);
-			}
-			catch(Exception e)
-			{
-				
-			}
+			incorrectUsernameOrPassword = false;
+			dbaccess.createUser(newUsername, newPassword, email, firstName, lastName);
+			loadSignInPage(request,response);
 		}
 	}
 	
-	boolean searchForUser(String username, String password, String select, 
-			String dbusername, String dbpassword, String database, PrintWriter out) 
-	{
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		List<User>userlist = new ArrayList<User>();
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			//make connection to database
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/"+database+"?",
-					dbusername,dbpassword);
-			stmt = conn.createStatement();
-			//execute statement on database
-			rs = stmt.executeQuery(select);
-			
-			ResultSetMetaData rsmd = rs.getMetaData();
-			
-			
-			//while result set has values
-			while(rs.next())
-			{
-				User u = new User();
-				for(int i= 1; i<=rsmd.getColumnCount();i++)
-				{
-					if(rsmd.getColumnName(i).equals("Username"))
-					{
-						u.username = rs.getString(i);
-					}
-					else if(rsmd.getColumnName(i).equals("Password"))
-					{
-						u.password = rs.getString(i);
-					}
-				}
-				userlist.add(u);
-			}
-			boolean userMatch = false;
-			int matches = 0; //used to make sure there is only one match
-			for(int i=0;i<userlist.size();i++)
-			{
-				if(userlist.get(i).username.equals(username))
-				{
-					if(userlist.get(i).password.equals(password))
-					{
-						if(matches == 0)
-						{
-							userMatch = true;
-							matches++;
-						}
-						else
-						{
-							System.out.println("Multiple users matched!");
-							return false;
-						}
-					}
-				}
-			}
-			if(userMatch)
-			{
-				return true;
-			}
-		} 
-		catch (Exception e) 
-		{
-			out.println("Invalid Search");
-			return false;
-		}
-		finally {
-			//close up all connections and such
-			if (rs != null) {
-		        try {
-		            rs.close();
-		        } catch (SQLException sqlEx) { } // ignore
-
-		        rs = null;
-		    }
-
-		    if (stmt != null) {
-		        try {
-		            stmt.close();
-		        } catch (SQLException sqlEx) { } // ignore
-
-		        stmt = null;
-		    }
-		    if(conn !=null)
-		    {
-		    	try {
-		    		conn.close();
-		    	}
-		    	catch(SQLException sqlEx) {}
-		    	conn = null;
-		    }
-		}
-		return false;
+	private void loadSignUpPage(HttpServletRequest request, HttpServletResponse response) {
+		String templatename = "signuppage.ftl";
+		processor.processTemplate(templatename,root,request,response);
 	}
+
+	private void loadSignInPage(HttpServletRequest request, HttpServletResponse response) {
+		String templatename = "signinpage.ftl";
+		root.put("incorrectUsernameOrPassword", incorrectUsernameOrPassword);
+		processor.processTemplate(templatename,root,request,response);
+	}
+
+	private void loadHomePage(HttpServletRequest request, HttpServletResponse response) {
+		incorrectUsernameOrPassword = false;
+		String templatename = "home.ftl";
+		processor.processTemplate(templatename,root,request,response);
+		
+	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -267,8 +163,106 @@ public class Login extends HttpServlet {
 		doGet(request, response);
 	}
 
-	class User{
-		public String username;
-		public String password;
-	}
+//	class User{
+//		public String username;
+//		public String password;
+//	}
+//	
+//	boolean searchForUser(String username, String password, String select, 
+//	String dbusername, String dbpassword, String database, PrintWriter out) 
+//{
+//Connection conn = null;
+//Statement stmt = null;
+//ResultSet rs = null;
+//List<User>userlist = new ArrayList<User>();
+//
+//try {
+//	Class.forName("com.mysql.jdbc.Driver");
+//	//make connection to database
+//	conn = DriverManager.getConnection("jdbc:mysql://localhost/"+database+"?",
+//			dbusername,dbpassword);
+//	stmt = conn.createStatement();
+//	//execute statement on database
+//	rs = stmt.executeQuery(select);
+//	
+//	ResultSetMetaData rsmd = rs.getMetaData();
+//	
+//	
+//	//while result set has values
+//	while(rs.next())
+//	{
+//		User u = new User();
+//		for(int i= 1; i<=rsmd.getColumnCount();i++)
+//		{
+//			if(rsmd.getColumnName(i).equals("Username"))
+//			{
+//				u.username = rs.getString(i);
+//			}
+//			else if(rsmd.getColumnName(i).equals("Password"))
+//			{
+//				u.password = rs.getString(i);
+//			}
+//		}
+//		userlist.add(u);
+//	}
+//	boolean userMatch = false;
+//	int matches = 0; //used to make sure there is only one match
+//	for(int i=0;i<userlist.size();i++)
+//	{
+//		if(userlist.get(i).username.equals(username))
+//		{
+//			if(userlist.get(i).password.equals(password))
+//			{
+//				if(matches == 0)
+//				{
+//					userMatch = true;
+//					matches++;
+//				}
+//				else
+//				{
+//					System.out.println("Multiple users matched!");
+//					return false;
+//				}
+//			}
+//		}
+//	}
+//	if(userMatch)
+//	{
+//		return true;
+//	}
+//} 
+//catch (Exception e) 
+//{
+//	out.println("Invalid Search");
+//	return false;
+//}
+//finally {
+//	//close up all connections and such
+//	if (rs != null) {
+//        try {
+//            rs.close();
+//        } catch (SQLException sqlEx) { } // ignore
+//
+//        rs = null;
+//    }
+//
+//    if (stmt != null) {
+//        try {
+//            stmt.close();
+//        } catch (SQLException sqlEx) { } // ignore
+//
+//        stmt = null;
+//    }
+//    if(conn !=null)
+//    {
+//    	try {
+//    		conn.close();
+//    	}
+//    	catch(SQLException sqlEx) {}
+//    	conn = null;
+//    }
+//}
+//return false;
+//}
+
 }

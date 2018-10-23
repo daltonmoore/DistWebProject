@@ -56,7 +56,7 @@
 	<#if x == true>
 		 <script>badUsernameOrPasswordPopUp()</script>
 	</#if>
-	<form class="login" action="MyServlet" method="post">
+	<form class="login" action="Login" method="post">
 		<h1 class="login-title">User Login</h1>
 		<input class="login-input" placeholder="Username" type="text" name="username"/>
 		<input class="login-input" placeholder="Password" type="password" name="password"/>

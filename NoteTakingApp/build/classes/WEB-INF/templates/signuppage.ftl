@@ -49,7 +49,7 @@
 	</style>
 </head>
 <body>
-	<form class="signup" action="MyServlet" method="post">
+	<form class="signup" action="Login" method="post">
 		<h1 class="signup-title">User Sign Up</h1>
 		<input 
 			class="signup-input" 
