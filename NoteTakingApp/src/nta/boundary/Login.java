@@ -1,3 +1,4 @@
+package nta.boundary;
 
 
 import java.io.File;
@@ -26,8 +27,8 @@ import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
-import nta.model.DatabaseAccess;
-import nta.model.TemplateProcessor;
+import nta.persistlayer.DatabaseAccess;
+import nta.persistlayer.TemplateProcessor;
 
 /**
  * Servlet implementation class MyServlet
@@ -162,107 +163,5 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
-//	class User{
-//		public String username;
-//		public String password;
-//	}
-//	
-//	boolean searchForUser(String username, String password, String select, 
-//	String dbusername, String dbpassword, String database, PrintWriter out) 
-//{
-//Connection conn = null;
-//Statement stmt = null;
-//ResultSet rs = null;
-//List<User>userlist = new ArrayList<User>();
-//
-//try {
-//	Class.forName("com.mysql.jdbc.Driver");
-//	//make connection to database
-//	conn = DriverManager.getConnection("jdbc:mysql://localhost/"+database+"?",
-//			dbusername,dbpassword);
-//	stmt = conn.createStatement();
-//	//execute statement on database
-//	rs = stmt.executeQuery(select);
-//	
-//	ResultSetMetaData rsmd = rs.getMetaData();
-//	
-//	
-//	//while result set has values
-//	while(rs.next())
-//	{
-//		User u = new User();
-//		for(int i= 1; i<=rsmd.getColumnCount();i++)
-//		{
-//			if(rsmd.getColumnName(i).equals("Username"))
-//			{
-//				u.username = rs.getString(i);
-//			}
-//			else if(rsmd.getColumnName(i).equals("Password"))
-//			{
-//				u.password = rs.getString(i);
-//			}
-//		}
-//		userlist.add(u);
-//	}
-//	boolean userMatch = false;
-//	int matches = 0; //used to make sure there is only one match
-//	for(int i=0;i<userlist.size();i++)
-//	{
-//		if(userlist.get(i).username.equals(username))
-//		{
-//			if(userlist.get(i).password.equals(password))
-//			{
-//				if(matches == 0)
-//				{
-//					userMatch = true;
-//					matches++;
-//				}
-//				else
-//				{
-//					System.out.println("Multiple users matched!");
-//					return false;
-//				}
-//			}
-//		}
-//	}
-//	if(userMatch)
-//	{
-//		return true;
-//	}
-//} 
-//catch (Exception e) 
-//{
-//	out.println("Invalid Search");
-//	return false;
-//}
-//finally {
-//	//close up all connections and such
-//	if (rs != null) {
-//        try {
-//            rs.close();
-//        } catch (SQLException sqlEx) { } // ignore
-//
-//        rs = null;
-//    }
-//
-//    if (stmt != null) {
-//        try {
-//            stmt.close();
-//        } catch (SQLException sqlEx) { } // ignore
-//
-//        stmt = null;
-//    }
-//    if(conn !=null)
-//    {
-//    	try {
-//    		conn.close();
-//    	}
-//    	catch(SQLException sqlEx) {}
-//    	conn = null;
-//    }
-//}
-//return false;
-//}
 
 }

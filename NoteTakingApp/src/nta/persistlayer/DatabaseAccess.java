@@ -1,4 +1,4 @@
-package nta.model;
+package nta.persistlayer;
 
 
 import java.sql.Connection;
