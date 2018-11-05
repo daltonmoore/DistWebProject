@@ -18,8 +18,7 @@ public class DatabaseAccess {
 			con = DriverManager.getConnection(DatabaseConfiguration.mysqlURL, DatabaseConfiguration.username, DatabaseConfiguration.password);
 		}catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 		return con;
 	}
 
