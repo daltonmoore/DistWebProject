@@ -27,6 +27,8 @@ import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import nta.logiclayer.UserLogic;
+import nta.objectlayer.User;
 import nta.persistlayer.DatabaseAccess;
 import nta.persistlayer.TemplateProcessor;
 
@@ -103,17 +105,9 @@ public class Login extends HttpServlet {
 		String username = request.getParameter("username");
 		String userpassword = request.getParameter("password");
 		
-		//fields for sign up
-		String newUsername = request.getParameter("newUsername");
-		String newPassword= request.getParameter("newPassword");
-		String email = request.getParameter("email");
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		
-		
 		if(signin != null)
 		{
-			if(dbaccess.authenticate(username,userpassword))
+			if(UserLogic.authenticateUser(username,userpassword))
 			{
 				loadHomePage(request,response);
 			}
@@ -124,15 +118,27 @@ public class Login extends HttpServlet {
 		        loadSignInPage(request,response);
 			}
 		}
-		else if(signup != null)
+		if(signup != null)
 		{
 			
 			loadSignUpPage(request,response);
 		}
-		else if(createuser != null)
+		
+		if(createuser != null)
 		{
 			incorrectUsernameOrPassword = false;
-			dbaccess.createUser(newUsername, newPassword, email, firstName, lastName);
+			
+			//fields for sign up
+			String newUsername = request.getParameter("newUsername");
+			String newPassword= request.getParameter("newPassword");
+			String email = request.getParameter("email");
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			
+			User user = new User(newUsername, newPassword, email, firstName, lastName);
+			UserLogic.createUser(user);
+			
+			//dbaccess.createUser(newUsername, newPassword, email, firstName, lastName);
 			loadSignInPage(request,response);
 		}
 	}

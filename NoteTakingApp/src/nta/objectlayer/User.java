@@ -57,8 +57,4 @@ public class User {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	
-	
-	
-	
 }

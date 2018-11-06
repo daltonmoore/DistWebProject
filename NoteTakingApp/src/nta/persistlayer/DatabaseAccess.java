@@ -7,65 +7,97 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
 //use this class to run queries and such as well as get a SINGLE connection instead of connecting to the database continuously
 public class DatabaseAccess {
-	DatabaseUtils dbutil = new DatabaseUtils();
+
+	private static Connection con = null;
 	
-	
-	public Connection getConnection() {
-		Connection con = null;
+	public static Connection getConnection() {
+		con = null;
 		try {
 			con = DriverManager.getConnection(DatabaseConfiguration.mysqlURL, DatabaseConfiguration.username, DatabaseConfiguration.password);
 		}catch (SQLException e) {
 			e.printStackTrace();
-		}	
+		}
+		
+		System.out.println("Connection returned successfully.");
+		
 		return con;
 	}
 
-//used to validate a given username has the appropriate password
-	public boolean authenticate(String username,String password) {
-		boolean valid = false;
-		ResultSet rs = null;
-		Connection con = getConnection();
-		try {
-			Statement st = con.createStatement();
-			String sql =  "SELECT username, password FROM users WHERE username='"+username+"';";
-			rs = st.executeQuery(sql);
-			
-			String rsUsername = "";
-			String rsPass="";
-			while (rs.next()) {
-				rsUsername = rs.getString("username");
-				rsPass = rs.getString("password");
-				System.out.println(username + " " + password+ " " + rsUsername + " " + rsPass);
-			}
-			if(rsPass.equals(password) && rsUsername.equals(username)) {
-				valid = true;
-			}else { 
-				valid=false;
-			}
+	public static ResultSet retrieve (String query) {
+		//Get connection and initialize result set
+		con = getConnection();
+		ResultSet resultSet = null;
 		
-			//close statement and result set	
-			dbutil.close(st, rs);
-		
-		} catch (SQLException sqlex) {
-			sqlex.printStackTrace();
+		try{   //create a statement and store the results in result set
+			Statement statement = con.createStatement();
+			resultSet = statement.executeQuery(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
-		return valid;
+		System.out.println("Result Set returned successfully.");
 		
+		return resultSet;
 	}
-
-//Adds a new user to the database
-	public void createUser(String newUsername, String newPassword, String email, String firstName, String lastName) {
-		Connection con = getConnection();
+	
+	public static int create (String query) {
+		con = getConnection();
+		int numRowsAffected = 0;			//user to store number of affected rows
 		try {
-			Statement st = con.createStatement();
-			String query = "insert into users values(" + 0 + ",'"+ newUsername + "','" + newPassword + "','" 
-					+ email + "','" + firstName + "','" + lastName + "')";
-			st.executeUpdate(query);
-		}catch (SQLException sqlex) {
-			sqlex.printStackTrace();
+			Statement statement = con.createStatement();
+			numRowsAffected = statement.executeUpdate(query);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(numRowsAffected + " were successfully created.");
+		
+		return numRowsAffected;
+	}
+	
+	public static int update (String query) {
+		con = getConnection();
+		int numRowsAffected = 0;
+		try {
+			Statement statement = con.createStatement();
+			numRowsAffected = statement.executeUpdate(query);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(numRowsAffected + " were successfully updated.");
+		
+		return numRowsAffected;
+	}
+	
+	public static int delete (String query) {
+		con = getConnection();
+		int numRowsAffected = 0;
+		try {
+			Statement statement = con.createStatement();
+			numRowsAffected = statement.executeUpdate(query);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(numRowsAffected + " were successfully deleted.");
+		
+		return numRowsAffected;
+	}
+	
+	public static void disconnect() {
+		if(con != null) {
+			try {
+				con.close();
+				System.out.println("Closing db connection...");
+			}catch (SQLException e) {
+				System.out.println("DB connection failed to close...");
+				e.printStackTrace();
+			}
 		}
 	}
 	
