@@ -6,7 +6,7 @@ public class DatabaseConfiguration {
 
 	public static String username = "root";
 	
-	public static String password = "B-rad7194";
+	public static String password = "given_password";
 	
 	public static String dbname = "notetakingapp";
 	
