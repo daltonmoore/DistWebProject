@@ -1,6 +1,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	 <link rel="stylesheet" href="./css/bootstrap.css"> 
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/home.css">
@@ -23,11 +24,11 @@
 		</ul>
 		<div class="notes-container">
 			<div class="header">Header One</div>
-			<div onclick="noteClick(this)" class="note" style="transform: translate(0px, 40px);">
+			<div onclick="noteClick(this)" class="note border border-primary" style="transform: translate(0px, 40px);">
 				<div class="noteTitle">Note Title 1</div>
 				<div class="noteContent">This is a test</div>
 			</div>
-			<div onclick="noteClick(this)" class="note" style="transform: translate(256px, 40px);">
+			<div onclick="noteClick(this)" class="note border border-secondary" style="transform: translate(256px, 40px);">
 				<div class="noteTitle">Note Title 2</div>
 				<div class="noteContent">This is also a test</div>
 			</div>
