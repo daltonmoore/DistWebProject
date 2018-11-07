@@ -2,12 +2,16 @@
 <head>
 	<meta charset="UTF-8">
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<script src="js/jquery.js"></script>
 	<link rel="stylesheet" href="Bootstrap/css/bootstrap.css">
 	<script src="Bootstrap/js/bootstrap.js"></script>
 =======
 	 <link rel="stylesheet" href="./css/bootstrap.css"> 
 >>>>>>> 932741c80b050096ea08d2005855f8c2dd5557b4
+=======
+	 <link rel="stylesheet" href="./css/bootstrap.css"> 
+>>>>>>> origin/master
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/default.css">
