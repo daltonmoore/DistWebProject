@@ -118,6 +118,7 @@ public class Login extends HttpServlet {
 		        loadSignInPage(request,response);
 			}
 		}
+		
 		if(signup != null)
 		{
 			
@@ -138,7 +139,6 @@ public class Login extends HttpServlet {
 			User user = new User(newUsername, newPassword, email, firstName, lastName);
 			UserLogic.createUser(user);
 			
-			//dbaccess.createUser(newUsername, newPassword, email, firstName, lastName);
 			loadSignInPage(request,response);
 		}
 	}
