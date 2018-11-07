@@ -17,11 +17,10 @@ public class DatabaseAccess {
 		con = null;
 		try {
 			con = DriverManager.getConnection(DatabaseConfiguration.mysqlURL, DatabaseConfiguration.username, DatabaseConfiguration.password);
+			System.out.println("Connection returned successfully.");
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("Connection returned successfully.");
 		
 		return con;
 	}
