@@ -27,11 +27,14 @@ import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import nta.logiclayer.CategoryLogic;
+import nta.logiclayer.NotesLogic;
 import nta.logiclayer.UserLogic;
 import nta.objectlayer.User;
 import nta.persistlayer.DatabaseAccess;
 import nta.persistlayer.TemplateProcessor;
-
+import nta.objectlayer.Category;
+import nta.objectlayer.Notes;
 /**
  * Servlet implementation class MyServlet
  */
@@ -109,6 +112,13 @@ public class Login extends HttpServlet {
 		{
 			if(UserLogic.authenticateUser(username,userpassword))
 			{
+				int userid = UserLogic.getUserIdByUsername(username);
+				System.out.println("User ID: "+userid);
+				root.put("userid",userid);
+				List<Notes> usernotes = NotesLogic.getNotesForAccountId(userid);
+				root.put("usernotes",usernotes);
+				List<Category> usercategories = CategoryLogic.getCategoriesForAccountId(userid);
+				root.put("usercategories", usercategories);
 				loadHomePage(request,response);
 			}
 			else
@@ -160,7 +170,6 @@ public class Login extends HttpServlet {
 		processor.processTemplate(templatename,root,request,response);
 		
 	}
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -2,6 +2,7 @@ package nta.objectlayer;
 
 public class Notes {
 	private int NoteID;
+	private String NoteTitle;
 	private String NoteContent;
 	private String Color;
 	private int AccountID;
@@ -10,13 +11,22 @@ public class Notes {
 	
 	public Notes() { };
 	
-	public Notes(int noteID, String noteContent, String color, int accountID, int categoryID, int statusID) {
+	public Notes(int noteID, String noteTitle, String noteContent, String color, int accountID, int categoryID, int statusID) {
 		this.NoteID = noteID;
+		this.NoteTitle = noteTitle;
 		this.NoteContent = noteContent;
 		this.Color = color;
 		this.AccountID = accountID;
 		this.CategoryID = categoryID;
 		this.StatusID = statusID;
+	}
+
+	public String getNoteTitle() {
+		return NoteTitle;
+	}
+
+	public void setNoteTitle(String noteTitle) {
+		NoteTitle = noteTitle;
 	}
 
 	public int getNoteID() {

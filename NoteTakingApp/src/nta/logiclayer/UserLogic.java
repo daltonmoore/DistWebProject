@@ -39,5 +39,21 @@ public class UserLogic {
 		DatabaseAccess.disconnect();
 		return valid;
 	}
+
+	public static int getUserIdByUsername(String username) {
+		ResultSet result = UserPersist.getUserIdByUsername(username);
+		
+		int userid = 0;
+		
+		try {
+			while(result.next()) {
+				userid = result.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return userid;
+	}
 	
 }
