@@ -12,7 +12,7 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import freemarker.template.TemplateExceptionHandler;
-import nta.model.TemplateProcessor;
+import nta.persistlayer.TemplateProcessor;
 
 /**
  * Servlet implementation class Navigation

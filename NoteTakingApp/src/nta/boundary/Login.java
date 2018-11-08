@@ -179,11 +179,9 @@ public class Login extends HttpServlet
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-<<<<<<< HEAD:NoteTakingApp/src/nta/boundary/Login.java
-<<<<<<< HEAD:NoteTakingApp/src/Login.java
-	
+
 	//old code
-	{
+	
 //class User{
 //		public String username;
 //		public String password;
@@ -285,11 +283,6 @@ public class Login extends HttpServlet
 //}
 //return false;
 //}
-	}
-=======
+	
 
->>>>>>> 932741c80b050096ea08d2005855f8c2dd5557b4:NoteTakingApp/src/nta/boundary/Login.java
-=======
-
->>>>>>> origin/master:NoteTakingApp/src/nta/boundary/Login.java
 }
