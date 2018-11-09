@@ -42,8 +42,7 @@ import nta.objectlayer.Notes;
 public class Login extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-    
-	private String templateDir = "/WEB-INF/templates";
+    private String templateDir = "/WEB-INF/templates";
 	Configuration cfg;
 	private TemplateProcessor processor;
 	private DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28);
@@ -51,6 +50,7 @@ public class Login extends HttpServlet
 	private HttpSession session;
 	DatabaseAccess dbaccess = new DatabaseAccess();
 	boolean incorrectUsernameOrPassword = false;
+	static String usernameStorage;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -113,6 +113,7 @@ public class Login extends HttpServlet
 		{
 			if(UserLogic.authenticateUser(username,userpassword))
 			{
+				usernameStorage = username;
 				int userid = UserLogic.getUserIdByUsername(username);
 				System.out.println("User ID: "+userid);
 				root.put("userid",userid);
@@ -168,6 +169,7 @@ public class Login extends HttpServlet
 	private void loadHomePage(HttpServletRequest request, HttpServletResponse response) {
 		incorrectUsernameOrPassword = false;
 		String templatename = "home.ftl"; 
+		root.put("user", usernameStorage);
 		processor.processTemplate(templatename,root,request,response);
 		
 	}
@@ -179,110 +181,4 @@ public class Login extends HttpServlet
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
-	//old code
-	
-//class User{
-//		public String username;
-//		public String password;
-//	}
-//	
-//	boolean searchForUser(String username, String password, String select, 
-//	String dbusername, String dbpassword, String database, PrintWriter out) 
-//{
-//Connection conn = null;
-//Statement stmt = null;
-//ResultSet rs = null;
-//List<User>userlist = new ArrayList<User>();
-//
-//try {
-//	Class.forName("com.mysql.jdbc.Driver");
-//	//make connection to database
-//	conn = DriverManager.getConnection("jdbc:mysql://localhost/"+database+"?",
-//			dbusername,dbpassword);
-//	stmt = conn.createStatement();
-//	//execute statement on database
-//	rs = stmt.executeQuery(select);
-//	
-//	ResultSetMetaData rsmd = rs.getMetaData();
-//	
-//	
-//	//while result set has values
-//	while(rs.next())
-//	{
-//		User u = new User();
-//		for(int i= 1; i<=rsmd.getColumnCount();i++)
-//		{
-//			if(rsmd.getColumnName(i).equals("Username"))
-//			{
-//				u.username = rs.getString(i);
-//			}
-//			else if(rsmd.getColumnName(i).equals("Password"))
-//			{
-//				u.password = rs.getString(i);
-//			}
-//		}
-//		userlist.add(u);
-//	}
-//	boolean userMatch = false;
-//	int matches = 0; //used to make sure there is only one match
-//	for(int i=0;i<userlist.size();i++)
-//	{
-//		if(userlist.get(i).username.equals(username))
-//		{
-//			if(userlist.get(i).password.equals(password))
-//			{
-//				if(matches == 0)
-//				{
-//					userMatch = true;
-//					matches++;
-//				}
-//				else
-//				{
-//					System.out.println("Multiple users matched!");
-//					return false;
-//				}
-//			}
-//		}
-//	}
-//	if(userMatch)
-//	{
-//		return true;
-//	}
-//} 
-//catch (Exception e) 
-//{
-//	out.println("Invalid Search");
-//	return false;
-//}
-//finally {
-//	//close up all connections and such
-//	if (rs != null) {
-//        try {
-//            rs.close();
-//        } catch (SQLException sqlEx) { } // ignore
-//
-//        rs = null;
-//    }
-//
-//    if (stmt != null) {
-//        try {
-//            stmt.close();
-//        } catch (SQLException sqlEx) { } // ignore
-//
-//        stmt = null;
-//    }
-//    if(conn !=null)
-//    {
-//    	try {
-//    		conn.close();
-//    	}
-//    	catch(SQLException sqlEx) {}
-//    	conn = null;
-//    }
-//}
-//return false;
-//}
-	
-
 }

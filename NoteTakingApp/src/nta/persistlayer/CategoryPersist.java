@@ -13,6 +13,15 @@ public class CategoryPersist {
 		
 		return results;
 	}
+	
+	public static int insertCategoriesForAccountId(int userid, String category)
+	{
+		String query = "insert into category values(0,"+userid+",'"+category+"')";
+		
+		int result = DatabaseAccess.create(query);
+		
+		return result;
+	}
 
 }
 

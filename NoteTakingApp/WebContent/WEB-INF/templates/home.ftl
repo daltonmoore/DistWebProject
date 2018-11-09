@@ -1,9 +1,8 @@
 <html>
 <head>
-	<meta charset="UTF-8">
 	<script src="js/jquery.js"></script>
-	<link rel="stylesheet" href="Bootstrap/css/bootstrap.css">
-	<script src="Bootstrap/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<script src="js/bootstrap.js"></script>
 	<link rel="stylesheet" href="./css/bootstrap.css"> 
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -27,16 +26,15 @@
 		<li class="sideBarItem" role="menuitem"><a>Create New Note</a></li>
 	</ul>-->
 	<nav class="nav flex-column" style="position: fixed;">
-		<form action="Navigation" method="post">
+		<form action="Navigate" method="post">
 				<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
 				<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Create Header">
-				<a class="nav-link" href="#">Link</a>
-				<a class="nav-link disabled" href="#">Disabled</a>
+				<input type="hidden" name="username" value=${user}>
 		</form>
 	</nav>
 
 	<div class="main">
-		<div class="header">Header One</div>
+		<div class="header">Uncategorized</div>
 		<div onclick="noteClick(this)" class="note" style="transform: translate(0px, 40px);">
 			<div class="noteTitle">Note Title 1</div>
 			<div class="noteContent">This is a test</div>
