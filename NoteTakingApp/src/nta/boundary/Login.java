@@ -46,7 +46,7 @@ public class Login extends HttpServlet
 	Configuration cfg;
 	private TemplateProcessor processor;
 	private DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28);
-	private SimpleHash root = new SimpleHash(db.build());
+	//private SimpleHash root = new SimpleHash(db.build());
 	private HttpSession session;
 	DatabaseAccess dbaccess = new DatabaseAccess();
 	boolean incorrectUsernameOrPassword = false;
@@ -113,32 +113,44 @@ public class Login extends HttpServlet
 		{
 			if(UserLogic.authenticateUser(username,userpassword))
 			{
+				SimpleHash root = new SimpleHash(db.build());
 				usernameStorage = username;
 				int userid = UserLogic.getUserIdByUsername(username);
 				System.out.println("User ID: "+userid);
-				root.put("userid",userid);
 				List<Notes> usernotes = NotesLogic.getNotesForAccountId(userid);
-				root.put("usernotes",usernotes);
-				List<Category> usercategories = CategoryLogic.getCategoriesForAccountId(userid);
-				root.put("usercategories", usercategories);
-				loadHomePage(request,response);
+				List<Category> categories = CategoryLogic.getCategoriesForAccountId(userid);
+				
+				for(int i =0; i < categories.size(); i++) {
+					System.out.println("Category:"+categories.get(i).getCategoryName());
+					System.out.println("AccountID:"+categories.get(i).getAccountID());
+					System.out.println("CategoryID:"+categories.get(i).getCategoryID());
+				}
+				
+				System.out.println(categories.size());
+				
+				root.put("userid", userid);
+				root.put("usernotes", usernotes);
+				root.put("categories", categories);
+				loadHomePage(request,response,root);
 			}
 			else
 			{   
+				SimpleHash root = new SimpleHash(db.build());
 				incorrectUsernameOrPassword = true;
 				root.put("incorrectUsernameOrPassword", incorrectUsernameOrPassword);
-		        loadSignInPage(request,response);
+		        loadSignInPage(request,response,root);
 			}
 		}
 		
 		if(signup != null)
 		{
-			
-			loadSignUpPage(request,response);
+			SimpleHash root = new SimpleHash(db.build());
+			loadSignUpPage(request,response,root);
 		}
 		
 		if(createuser != null)
 		{
+			SimpleHash root = new SimpleHash(db.build());
 			incorrectUsernameOrPassword = false;
 			
 			//fields for sign up
@@ -151,22 +163,22 @@ public class Login extends HttpServlet
 			User user = new User(newUsername, newPassword, email, firstName, lastName);
 			UserLogic.createUser(user);
 			
-			loadSignInPage(request,response);
+			loadSignInPage(request,response,root);
 		}
 	}
 	
-	private void loadSignUpPage(HttpServletRequest request, HttpServletResponse response) {
+	private void loadSignUpPage(HttpServletRequest request, HttpServletResponse response, SimpleHash root) {
 		String templatename = "signuppage.ftl";
 		processor.processTemplate(templatename,root,request,response);
 	}
 
-	private void loadSignInPage(HttpServletRequest request, HttpServletResponse response) {
+	private void loadSignInPage(HttpServletRequest request, HttpServletResponse response, SimpleHash root) {
 		String templatename = "signinpage.ftl";
 		root.put("incorrectUsernameOrPassword", incorrectUsernameOrPassword);
 		processor.processTemplate(templatename,root,request,response);
 	}
 
-	private void loadHomePage(HttpServletRequest request, HttpServletResponse response) {
+	private void loadHomePage(HttpServletRequest request, HttpServletResponse response, SimpleHash root) {
 		incorrectUsernameOrPassword = false;
 		String templatename = "home.ftl"; 
 		root.put("user", usernameStorage);

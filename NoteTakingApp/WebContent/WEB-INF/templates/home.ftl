@@ -1,13 +1,33 @@
 <html>
 <head>
+	<meta charset="UTF-8">
 	<script src="js/jquery.js"></script>
-	<link rel="stylesheet" href="css/bootstrap/bootstrap.css">
-	<script src="js/bootstrap/bootstrap.js"></script>
+	<link rel="stylesheet" href="Bootstrap/css/bootstrap.css">
+	<script src="Bootstrap/js/bootstrap.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<script src="js/home.js"></script>
+	<style>
+		.note{
+			position:static;
+			margin-top:50px;
+			float: left;
+		}
+		table{
+			border-collapse: collapse;
+		}
+
+		tr{
+			height: 300px;
+		}
+
+		td{
+			vertical-align: top;
+		}
+	</style>
+
 </head>
 <body>
 	<header class="navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -17,8 +37,8 @@
 	</header>
 	
 	<nav class="nav flex-column" style="position: fixed;">
-		<form action="Navigate" method="post">
-				<input class="nav-link active" style="display: inline" type="submit" name="GoToNotePage" value="Notes">
+		<form action="Navigate" method="get">
+				<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
 				<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Create Header">
 				<input type="hidden" name="username" value=${user}>
 		</form>
@@ -84,7 +104,7 @@
 			<tr>
 			</tr>
 		</table>
-		-->
+	-->
 
 	</div>
 	<div id="modal">

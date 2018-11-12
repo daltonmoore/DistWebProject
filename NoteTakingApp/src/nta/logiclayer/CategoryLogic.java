@@ -7,10 +7,11 @@ import java.util.List;
 
 import nta.objectlayer.Category;
 import nta.persistlayer.CategoryPersist;
+import nta.persistlayer.DatabaseAccess;
 
 public class CategoryLogic {
 
-	public static List<Category> getCategoriesForAccountId(int userid) {
+	public static List getCategoriesForAccountId(int userid) {
 		List<Category> categories = new ArrayList<Category>();
 		
 		ResultSet results = CategoryPersist.getCategoriesForAccount(userid);
@@ -20,14 +21,17 @@ public class CategoryLogic {
 				Category category = new Category();
 				category.setCategoryID(results.getInt(1));
 				category.setAccountID(results.getInt(2));
+				System.out.println("account ID from category: " + category.getAccountID());
 				category.setCategoryName(results.getString(3));
+				System.out.println("CategoryName : " + category.getCategoryName());
 				categories.add(category);
-				
-				System.out.println("List created. Returning category list of size: " + categories.size());
 			}
+			System.out.println("List created. Returning category list of size: " + categories.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		DatabaseAccess.disconnect();
+		
 		return categories;
 	}
 	

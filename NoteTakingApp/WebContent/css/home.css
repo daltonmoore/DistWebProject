@@ -114,6 +114,8 @@ body{
 	margin: 16px;
 	/*position: absolute;*/
 	display: block;
+	margin-top:50px;
+	float: left;
 }
 
 .noteTitle{
@@ -128,6 +130,19 @@ body{
 	text-align: left;
 	font-family: 'Roboto', Arial;
 	font-size: 15px;
+}
+
+
+table{
+	border-collapse: collapse;
+}
+
+tr{
+	height: 300px;
+}
+
+td{
+	vertical-align: top;
 }
 
 #newnotetitle{
