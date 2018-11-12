@@ -112,7 +112,7 @@ body{
 	height: 200px;
 	box-shadow: 5px 5px 5px grey;
 	margin: 16px;
-	position: absolute;
+	/*position: absolute;*/
 	display: block;
 }
 
