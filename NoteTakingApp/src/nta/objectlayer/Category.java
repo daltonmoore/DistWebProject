@@ -4,17 +4,17 @@ package nta.objectlayer;
 public class Category {
 	private int CategoryID;
 	private int AccountID;
-	private String CategoryName;
+	private String categoryname;
 	
 	public Category() {
 		this.CategoryID = 1;
-		this.CategoryName = "General Notes";
+		this.categoryname = "General Notes";
 	}
 
-	public Category(int categoryID, int accountID, String categoryName) {
+	public Category(int categoryID, int accountID, String categoryname) {
 		this.CategoryID = categoryID;
 		this.AccountID = accountID;
-		this.CategoryName = categoryName;
+		this.categoryname = categoryname;
 	}
 
 	public int getCategoryID() {
@@ -22,7 +22,7 @@ public class Category {
 	}
 
 	public void setCategoryID(int categoryID) {
-		CategoryID = categoryID;
+		this.CategoryID = categoryID;
 	}
 
 	public int getAccountID() {
@@ -30,15 +30,15 @@ public class Category {
 	}
 
 	public void setAccountID(int accountID) {
-		AccountID = accountID;
+		this.AccountID = accountID;
 	}
 
 	public String getCategoryName() {
-		return CategoryName;
+		return categoryname;
 	}
 
-	public void setCategoryName(String categoryName) {
-		CategoryName = categoryName;
+	public void setCategoryName(String categoryname) {
+		this.categoryname = categoryname;
 	}
 }
 

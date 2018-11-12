@@ -182,3 +182,16 @@ body{
 	background-color: #e8e8e8;'
 	margin: 0 auto;
 }
+
+table{
+	border-collapse: collapse;
+	margin : 200px;
+}
+
+tr{
+	height: 300px;
+}
+
+td{
+	vertical-align: top;
+}

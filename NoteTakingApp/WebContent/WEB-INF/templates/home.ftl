@@ -10,6 +10,15 @@
 	<link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<script src="js/home.js"></script>
+<style>
+	tr{
+		height: 300px;
+	}
+	td{
+		vertical-align: top;
+	}
+</style>
+
 </head>
 <body>
 	<ul class="horizontalUL">
@@ -36,14 +45,25 @@
 	</nav>
 
 	<div class="main">
-		<div class="header">Header One</div>
-		<div onclick="noteClick(this)" class="note" style="transform: translate(0px, 40px);">
-			<div class="noteTitle">Note Title 1</div>
-			<div class="noteContent">This is a test</div>
-		</div>
-		<div onclick="noteClick(this)" class="note" style="transform: translate(256px, 40px);">
-			<div class="noteTitle">Note Title 2</div>
-			<div class="noteContent">This is also a test</div>
+		<div class="categories">
+		<table>
+			<#list categories as categories>
+			<tr><td>
+				<div class="category">
+					<div class="header">${categories.categoryName}</div>	
+						
+						<div onclick="noteClick(this)" class="note" style="transform: translate(0px, 40px);">
+							<div class="noteTitle">Note Title 1</div>
+							<div class="noteContent">This is a test</div>
+						</div>
+						<div onclick="noteClick(this)" class="note" style="transform: translate(256px, 40px);">
+							<div class="noteTitle">Note Title 2</div>
+							<div class="noteContent">This is also a test</div>
+						</div>
+					</div>
+			</tr></td>
+			</#list>
+		</table>
 		</div>
 	</div>
 	<div id="modal">
