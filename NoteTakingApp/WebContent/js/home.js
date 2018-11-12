@@ -29,7 +29,17 @@ document.addEventListener("click", function(event){
 	}
 	box.style.display = "none";
 	visible = false;
-})
+});
+
+$(function(){
+	$('.searchbar').keyup(searchBar);
+});
+
+$.expr[":"].contains = $.expr.createPseudo(function(arg){
+	return function(elem){
+		return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+	};
+});
 
 
 function changeColor(){
@@ -61,4 +71,34 @@ function closeNote(){
 	modal.style.display = "none";
 	note.style.display = "block";
 	
+}
+
+function showNewNoteFields(){
+	$('#newnotebtn').css('display', 'none');
+	$('#newnotefields').css('display', 'block');
+	$('#createnote').css('display', 'block');
+	$('#cancelnote').css('display', 'block');
+}
+
+function createNewNote(){
+	var category = $('#newnotecategory').val();
+	var title = $('#newnotetitle').val();
+	var body = $('#newnotebody').val();
+	var temp = $('<td><div class=\"note\">'
+		+'<div class=\"noteTitle\">'+ title +'</div>'
+		+'<div class=\"noteContent\">'+ body +'</div>'
+		+'</div></td>');
+	$('#test tr:last').append($(temp));
+}
+
+function cancelNewNote(){
+	$('#newnotebtn').css('display', 'block');
+	$('#newnotefields').css('display', 'none');
+	$('#createnote').css('display', 'none');
+	$('#cancelnote').css('display', 'none');
+}
+
+function searchBar(){
+	$('.note:not(:contains('+ $('.searchbar').val() +'))').css('display', 'none');
+	$('.note:contains('+ $('.searchbar').val() +')').css('display', 'block');
 }

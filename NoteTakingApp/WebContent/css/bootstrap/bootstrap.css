@@ -3960,6 +3960,10 @@ input[type="button"].btn-block {
 }
 
 .navbar {
+   /*i added these*/
+   float: left;
+
+   /*this i did not add*/
   position: relative;
   display: -ms-flexbox;
   display: flex;
