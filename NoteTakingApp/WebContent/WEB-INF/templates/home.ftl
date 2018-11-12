@@ -1,8 +1,9 @@
 <html>
 <head>
+	<meta charset="UTF-8">
 	<script src="js/jquery.js"></script>
-	<link rel="stylesheet" href="css/bootstrap/bootstrap.css">
-	<script src="js/bootstrap/bootstrap.js"></script>
+	<link rel="stylesheet" href="Bootstrap/css/bootstrap.css">
+	<script src="Bootstrap/js/bootstrap.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/default.css">
@@ -28,15 +29,27 @@
 	</nav>
 	
 	<nav class="nav flex-column" style="position: fixed;">
-		<form action="Navigate" method="post">
+		<form action="Navigate" method="get">
 				<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
 				<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Create Header">
 				<input type="hidden" name="username" value=${user}>
 		</form>
 	</nav>
 
-<<<<<<< HEAD
-	<div class="main">
+	<div class="main" style="margin-top: 40px;">
+		<div>
+			<button id="newnotebtn" onclick="showNewNoteFields()">Create New Note</button>
+			<div id="newnotefields" style="display:none">
+				<input id="newnotetitle" type="text" placeholder="Note Title">
+				<textarea id="newnotebody" type="text" placeholder="Note Body"></textarea>
+				<select id="newnotecategory">
+					<option>Category 0</option>
+				</select>
+			</div>
+			<button id="createnote" onclick="createNewNote()" style="display:none">Create</button>
+			<button id="cancelnote" onclick="cancelNewNote()" style="display:none">Cancel</button>
+		</div>
+		
 		<div class="categories">
 		<table>
 			<#list categories as categories>
@@ -56,21 +69,8 @@
 			</tr></td>
 			</#list>
 		</table>
-=======
-	<div class="main" style="margin-top: 40px;">
-		<div>
-			<button id="newnotebtn" onclick="showNewNoteFields()">Create New Note</button>
-			<div id="newnotefields" style="display:none">
-				<input id="newnotetitle" type="text" placeholder="Note Title">
-				<textarea id="newnotebody" type="text" placeholder="Note Body"></textarea>
-				<select id="newnotecategory">
-					<option>Category 0</option>
-				</select>
-			</div>
-			<button id="createnote" onclick="createNewNote()" style="display:none">Create</button>
-			<button id="cancelnote" onclick="cancelNewNote()" style="display:none">Cancel</button>
-		</div>
 		
+	<!--	
 		<div class="header">Uncategorized</div>
 		<div onclick="noteClick(this)" class="note" style="transform: translate(0px, 40px);">
 			<div id="noteTitle" class="noteTitle">Data Comm</div>
@@ -79,7 +79,6 @@
 		<div onclick="noteClick(this)" class="note" style="transform: translate(256px, 40px);">
 			<div id="noteTitle" class="noteTitle">Computer Arch</div>
 			<div class="noteContent">efgh</div>
->>>>>>> branch 'master' of https://github.com/daltonmoore/DistWebProject.git
 		</div>
 		<div onclick="noteClick(this)" class="note" style="transform: translate(512px, 40px);">
 			<div id="noteTitle" class="noteTitle">Database</div>
@@ -89,7 +88,7 @@
 			<div id="noteTitle" class="noteTitle">Systems Software</div>
 			<div class="noteContent">lmno</div>
 		</div>
-		<!--
+	
 		<table class="table" id="test">
 			<tr>
 				<th height="100">Note 0</th>
@@ -101,7 +100,7 @@
 			<tr>
 			</tr>
 		</table>
-		-->
+	-->
 
 	</div>
 	<div id="modal">

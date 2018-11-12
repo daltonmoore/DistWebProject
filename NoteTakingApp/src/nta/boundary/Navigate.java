@@ -17,8 +17,10 @@ import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import freemarker.template.TemplateExceptionHandler;
 import nta.logiclayer.CategoryLogic;
+import nta.logiclayer.NotesLogic;
 import nta.logiclayer.UserLogic;
 import nta.objectlayer.Category;
+import nta.objectlayer.Notes;
 import nta.persistlayer.TemplateProcessor;
 
 /**
@@ -108,7 +110,16 @@ public class Navigate extends HttpServlet
 	void loadNotePage(HttpServletRequest request, HttpServletResponse response)
 	{
 		String templatename = "home.ftl"; 
+		
+		int userid = UserLogic.getUserIdByUsername(usernameStorage);
+		System.out.println("User ID: "+userid);
+		List<Notes> usernotes = NotesLogic.getNotesForAccountId(userid);
+		List<Category> categories = CategoryLogic.getCategoriesForAccountId(userid);
+		
 		root.put("user", usernameStorage);
+		root.put("userid", userid);
+		root.put("usernotes", usernotes);
+		root.put("categories", categories);
 		processor.processTemplate(templatename,root,request,response);
 	}
 
