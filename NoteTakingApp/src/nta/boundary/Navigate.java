@@ -80,7 +80,6 @@ public class Navigate extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		usernameStorage = request.getParameter("username");
-		System.out.println(usernameStorage);
 		String goToCreateHeaderPage = request.getParameter("GoToCreateHeaderPage");
 		String goToNotePage = request.getParameter("GoToNotePage");
 		String submitHeaders = request.getParameter("submitHeaders");
@@ -101,13 +100,8 @@ public class Navigate extends HttpServlet
 		root.put("username", usernameStorage);
 		int userid = UserLogic.getUserIdByUsername(usernameStorage);
 		List<Category> list =  CategoryLogic.getCategoriesForAccountId(userid);
-		String[] categoryNames = new String[list.size()];
-		for(int i=0; i< list.size(); i++)
-		{
-			categoryNames[i] = list.get(i).getCategoryName();
-		}
 		
-		root.put("sequence", categoryNames);
+		root.put("sequence", list);
 		processor.processTemplate(templatename,root,request,response);
 	}
 

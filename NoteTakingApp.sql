@@ -32,9 +32,9 @@ CREATE TABLE Status(
 --
 
 CREATE TABLE Category (
-	CategoryID int NOT NULL AUTO_INCREMENT DEFAULT 1,
+	CategoryID int NOT NULL AUTO_INCREMENT,
     AccountID int NOT NULL,
-    CategoryName varchar(255) NOT NULL DEFAULT 'General Notes',
+    CategoryName varchar(255) DEFAULT 'General Notes',
     PRIMARY KEY (CategoryID),
     FOREIGN KEY (AccountID)
 		REFERENCES Users(AccountID)

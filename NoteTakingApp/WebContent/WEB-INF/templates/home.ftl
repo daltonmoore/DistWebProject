@@ -1,9 +1,8 @@
 <html>
 <head>
 	<script src="js/jquery.js"></script>
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<script src="js/bootstrap.js"></script>
-	<link rel="stylesheet" href="./css/bootstrap.css"> 
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+	<script src="js/bootstrap/bootstrap.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/default.css">
@@ -11,20 +10,14 @@
 	<script src="js/home.js"></script>
 </head>
 <body>
-	<ul class="horizontalUL">
-		<li class="horizontalLI"><input onfocus="searchBar()" class="searchbar" placeholder="Search" type="text" name="search"/></li>
-		<li class="horizontalLI" style="float:right"><a>Test</a></li>
-	</ul>
+	<nav class="navbar-expand-lg fixed-top navbar-dark bg-dark">
+		<ul class="navbar-nav">
+			<li><a><span class="navbar-brand">Brand</span></a></li>
+			<li><input class="searchbar" placeholder="Search" type="text" name="search"></li>
+			<li><span>Username</span></li>
+		</ul>
+	</nav>
 	
-
-	<!--<ul class="sideBar">
-		<li class="sideBarItem" role="menuitem" onclick="sideBarClick() "><a>Note Page</a></li>
-		<li class="sideBarItem" role="menuitem"><a>Create Header</a></li>
-		<li class="sideBarItem" role="menuitem"><a>Archive</a></li>
-		<li class="sideBarItem" role="menuitem"><a>Trash</a></li>
-		<li class="sideBarItem" role="menuitem"><a>Settings</a></li>
-		<li class="sideBarItem" role="menuitem"><a>Create New Note</a></li>
-	</ul>-->
 	<nav class="nav flex-column" style="position: fixed;">
 		<form action="Navigate" method="post">
 				<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
@@ -33,16 +26,51 @@
 		</form>
 	</nav>
 
-	<div class="main">
+	<div class="main" style="margin-top: 40px;">
+		<div>
+			<button id="newnotebtn" onclick="showNewNoteFields()">Create New Note</button>
+			<div id="newnotefields" style="display:none">
+				<input id="newnotetitle" type="text" placeholder="Note Title">
+				<textarea id="newnotebody" type="text" placeholder="Note Body"></textarea>
+				<select id="newnotecategory">
+					<option>Category 0</option>
+				</select>
+			</div>
+			<button id="createnote" onclick="createNewNote()" style="display:none">Create</button>
+			<button id="cancelnote" onclick="cancelNewNote()" style="display:none">Cancel</button>
+		</div>
+		
 		<div class="header">Uncategorized</div>
 		<div onclick="noteClick(this)" class="note" style="transform: translate(0px, 40px);">
-			<div class="noteTitle">Note Title 1</div>
-			<div class="noteContent">This is a test</div>
+			<div id="noteTitle" class="noteTitle">Data Comm</div>
+			<div class="noteContent">abcd</div>
 		</div>
 		<div onclick="noteClick(this)" class="note" style="transform: translate(256px, 40px);">
-			<div class="noteTitle">Note Title 2</div>
-			<div class="noteContent">This is also a test</div>
+			<div id="noteTitle" class="noteTitle">Computer Arch</div>
+			<div class="noteContent">efgh</div>
 		</div>
+		<div onclick="noteClick(this)" class="note" style="transform: translate(512px, 40px);">
+			<div id="noteTitle" class="noteTitle">Database</div>
+			<div class="noteContent">hijk</div>
+		</div>
+		<div onclick="noteClick(this)" class="note" style="transform: translate(768px, 40px);">
+			<div id="noteTitle" class="noteTitle">Systems Software</div>
+			<div class="noteContent">lmno</div>
+		</div>
+		<!--
+		<table class="table" id="test">
+			<tr>
+				<th height="100">Note 0</th>
+				<th height="100">Note 1</th>
+				<th height="100">Note 2</th>
+				<th height="100">Note 3</th>
+				<th height="100">Note 4</th>
+			</tr>
+			<tr>
+			</tr>
+		</table>
+		-->
+
 	</div>
 	<div id="modal">
 		<div class="modal-content">
@@ -73,6 +101,5 @@
 			</div>
 		</div>
 	</div>
-	<p id="out" style="bottom: 0px; position: fixed;">Paragraph</p>
 </body>
 </html>

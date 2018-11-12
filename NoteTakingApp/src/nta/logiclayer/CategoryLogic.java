@@ -35,5 +35,10 @@ public class CategoryLogic {
 	{
 		return CategoryPersist.insertCategoriesForAccountId(userid, category);
 	}
+
+	public static int deleteCategoryForAccountId(int userid, String category)
+	{
+		return CategoryPersist.deleteCategoryForAccountId(userid, category);
+	}
 }
 

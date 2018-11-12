@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.gson.*;
+
+import javax.json.JsonObject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +25,8 @@ import nta.persistlayer.TemplateProcessor;
 /**
  * Servlet implementation class CreateHeader
  */
-@WebServlet("/CreateHeader")
-public class CreateHeader extends HttpServlet 
+@WebServlet("/HeaderPage")
+public class HeaderPage extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	private String templateDir = "/WEB-INF/templates";
@@ -36,7 +39,7 @@ public class CreateHeader extends HttpServlet
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateHeader() {
+    public HeaderPage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -77,35 +80,37 @@ public class CreateHeader extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		//passing around username
 		String username = request.getParameter("username");
 		usernameStorage = username;
-		String submitHeaders = request.getParameter("submitHeaders");
-		String headersAddedCount = request.getParameter("headersAddedCount");
-		//System.out.println(headersAddedCount);
-		//System.out.println(submitHeaders);
-		if(submitHeaders != null)
+
+		//for creating headers
+		String headerToInsert = request.getParameter("headerToInsert");
+
+		//for when they delete a header
+		String headerToDelete = request.getParameter("headerName");
+		
+		if(headerToInsert  != null)
 		{
-			int userid = UserLogic.getUserIdByUsername(username);
-			ArrayList<String> headers = new ArrayList<String>();
-			for(int i = 0; i < Integer.parseInt(headersAddedCount); i++)
+			int userid = UserLogic.getUserIdByUsername(usernameStorage);
+			int result = CategoryLogic.insertCategoriesForAccountId(userid, headerToInsert);
+			if(result == 0)
 			{
-				headers.add(request.getParameter("addedHeader"+i));
-				System.out.println(headers.get(i));
+					System.out.println("failed insert");
+					return;
 			}
-			int result = CategoryLogic.insertCategoriesForAccountId(userid, headers.get(0));
-			System.out.println(result);
-			//loadCreateHeaderPage(request, response);
 			RequestDispatcher rd = request.getRequestDispatcher("Navigate");
 			rd.forward(request, response);
 		}
-	}
-	
-	void loadCreateHeaderPage(HttpServletRequest request, HttpServletResponse response)
-	{
-		String templatename = "createheaderpage.ftl"; 
-		System.out.println(usernameStorage);
-		root.put("username", usernameStorage);
-		processor.processTemplate(templatename,root,request,response);
+		else if(headerToDelete != null)
+		{
+			int userid = UserLogic.getUserIdByUsername(username);
+			int result = CategoryLogic.deleteCategoryForAccountId(userid, headerToDelete.trim());
+			if(result == 0)
+				System.out.println("failed delete");
+			else
+				System.out.println("successful delete");
+		}
 	}
 
 	/**
