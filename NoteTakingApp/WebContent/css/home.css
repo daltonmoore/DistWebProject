@@ -114,6 +114,8 @@ body{
 	margin: 16px;
 	position: absolute;
 	display: block;
+	margin-top:50px;
+	float: left;
 }
 
 .noteTitle{

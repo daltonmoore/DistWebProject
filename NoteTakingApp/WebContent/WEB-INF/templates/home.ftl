@@ -9,14 +9,24 @@
 	<link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<script src="js/home.js"></script>
-<style>
-	tr{
-		height: 300px;
-	}
-	td{
-		vertical-align: top;
-	}
-</style>
+	<style>
+		.note{
+			position:static;
+			margin-top:50px;
+			float: left;
+		}
+		table{
+			border-collapse: collapse;
+		}
+
+		tr{
+			height: 300px;
+		}
+
+		td{
+			vertical-align: top;
+		}
+	</style>
 
 </head>
 <body>
@@ -56,15 +66,15 @@
 			<tr><td>
 				<div class="category">
 					<div class="header">${categories.categoryName}</div>	
-						
-						<div onclick="noteClick(this)" class="note" style="transform: translate(0px, 40px);">
-							<div class="noteTitle">Note Title 1</div>
-							<div class="noteContent">This is a test</div>
-						</div>
-						<div onclick="noteClick(this)" class="note" style="transform: translate(256px, 40px);">
-							<div class="noteTitle">Note Title 2</div>
-							<div class="noteContent">This is also a test</div>
-						</div>
+						<#list usernotes as notes>
+							<#if notes.categoryID == categories.categoryID>
+							<div class="note" onclick="noteClick(this)" class="note">
+								<div class="noteTitle">${notes.noteTitle}</div>
+								<div class="noteContent">${notes.noteContent}</div>
+							</div>
+						</#if>
+						</#list>
+							
 					</div>
 			</tr></td>
 			</#list>
