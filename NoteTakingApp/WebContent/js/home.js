@@ -79,7 +79,7 @@ function createNewNote(){
 		+'<div class=\"noteContent\">'+ body +'</div>'
 		+'</div>');
 	$('div.grid.'+category).append($(temp));
-}
+} 
 
 function cancelNewNote(){
 	$('#newnotebtn').css('display', 'block');
