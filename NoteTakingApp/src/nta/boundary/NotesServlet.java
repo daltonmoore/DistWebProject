@@ -17,7 +17,7 @@ import freemarker.template.TemplateExceptionHandler;
  * Servlet implementation class Notes
  */
 @WebServlet("/Notes")
-public class Notes extends HttpServlet 
+public class NotesServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	Configuration cfg;
@@ -26,7 +26,7 @@ public class Notes extends HttpServlet
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Notes() {
+    public NotesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

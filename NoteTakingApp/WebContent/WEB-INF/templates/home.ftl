@@ -11,9 +11,9 @@
 	<script src="js/home.js"></script>
 	<style>
 		.note{
-			position:static;
+			position:relative;
 			margin-top:50px;
-			float: left;
+			
 		}
 		table{
 			border-collapse: collapse;
@@ -30,6 +30,18 @@
 		td{
 			vertical-align: top;
 		}
+		
+		.grid{
+			display: grid;
+			grid-template-columns: 300px 300px 300px 300px 300px;
+		
+		}
+		
+		.header{
+			position: relative;
+			margin: 22px 16px;
+		}
+		
 	</style>
 
 </head>
@@ -64,35 +76,24 @@
 			<button id="cancelnote" onclick="cancelNewNote()" style="display:none">Cancel</button>
 		</div>
 		
-		<table>
 			<#list categories as categories>
-			<tr class="headers">
-				<td>
-					<div class="header">${categories.categoryName}
-				</td>
-			</tr>
-			<tr class="notes">
 					
+			<div class="header">${categories.categoryName}</div>
+			<div class="grid">	
 				<#list usernotes as notes>	
-					<#if notes.categoryID == categories.categoryID>
-					<#if notes?counter % 5 == 0>
-						<tr></tr>
-					</#if>	
-						<td>
+					<#if notes.categoryID == categories.categoryID>	
 						<div class="note" onclick="noteClick(this)" class="note">
 							<div class="noteTitle">${notes.noteTitle}</div>
 							<div class="noteContent">${notes.noteContent}</div>
-							<input type="hidden" id="accountId" value="${userid}">
-							<input type="hidden" id="noteId" value="${notes.noteID}">
-							<input type="hidden" id="categoryId" value="${notes.categoryID}">
-							<input type="hidden" id="color" value="${notes.color}">
+							<input type="hidden" id="accountId" value="${userid}"/>
+							<input type="hidden" id="noteId" value="${notes.noteID}"/>
+							<input type="hidden" id="categoryId" value="${notes.categoryID}"/>
+							<input type="hidden" id="color" value="${notes.color}"/>
 						</div>
-						</td>
 					</#if>
 				</#list>
-			</tr>
+			</div>
 			</#list>
-		</table>
 		
 	<!--
 		<div class="header">Uncategorized</div>

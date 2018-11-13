@@ -85,11 +85,11 @@ function createNewNote(){
 	var category = $('#newnotecategory').val();
 	var title = $('#newnotetitle').val();
 	var body = $('#newnotebody').val();
-	var temp = $('<td><div class=\"note\">'
+	var temp = $('<div class=\"note\">'
 		+'<div class=\"noteTitle\">'+ title +'</div>'
 		+'<div class=\"noteContent\">'+ body +'</div>'
-		+'</div></td>');
-	$('tr.notes').append($(temp));
+		+'</div>');
+	$('.grid').append($(temp));
 }
 
 function cancelNewNote(){
