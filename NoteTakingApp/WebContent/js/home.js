@@ -20,17 +20,6 @@ function noteClick(item){
 
 var visible = false;
 
-document.addEventListener("click", function(event){
-	var box = document.getElementById("options");
-	var out = document.getElementById("out");
-	out.innerHTML = event.target.closest(".options");
-	if(event.target.closest(".options") || event.target.closest(".optionbutton")){
-		visible = true;
-		return;
-	}
-	box.style.display = "none";
-	visible = false;
-});
 
 $(function(){
 	$('.searchbar').keyup(searchBar);
@@ -89,7 +78,7 @@ function createNewNote(){
 		+'<div class=\"noteTitle\">'+ title +'</div>'
 		+'<div class=\"noteContent\">'+ body +'</div>'
 		+'</div>');
-	$('.grid').append($(temp));
+	$('div.grid.'+category).append($(temp));
 }
 
 function cancelNewNote(){

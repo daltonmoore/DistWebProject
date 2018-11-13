@@ -68,7 +68,7 @@
 				<textarea id="newnotebody" type="text" placeholder="Note Body"></textarea>
 				<select id="newnotecategory">
 					<#list categories as categories>	
-						<option value="categories.categoryID">${categories.categoryName}</option>
+						<option value="${categories.categoryID}">${categories.categoryName}</option>
 					</#list>
 				</select>
 			</div>
@@ -79,7 +79,7 @@
 			<#list categories as categories>
 					
 			<div class="header">${categories.categoryName}</div>
-			<div class="grid">	
+			<div class="grid ${categories.categoryID}">	
 				<#list usernotes as notes>	
 					<#if notes.categoryID == categories.categoryID>	
 						<div class="note" onclick="noteClick(this)" class="note">
