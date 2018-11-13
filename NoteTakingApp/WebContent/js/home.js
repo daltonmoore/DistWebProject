@@ -17,6 +17,7 @@ function noteClick(item){
 	modalText.contentEditable = "true";
 	modalTitle.contentEditable = "true";
 }
+
 var visible = false;
 
 document.addEventListener("click", function(event){
@@ -84,11 +85,11 @@ function createNewNote(){
 	var category = $('#newnotecategory').val();
 	var title = $('#newnotetitle').val();
 	var body = $('#newnotebody').val();
-	var temp = $('<div class=\"note\">'
+	var temp = $('<td><div class=\"note\">'
 		+'<div class=\"noteTitle\">'+ title +'</div>'
 		+'<div class=\"noteContent\">'+ body +'</div>'
-		+'</div>');
-	$('.uncategorized').append($(temp));
+		+'</div></td>');
+	$('tr.notes').append($(temp));
 }
 
 function cancelNewNote(){

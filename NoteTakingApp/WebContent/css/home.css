@@ -133,18 +133,6 @@ body{
 }
 
 
-table{
-	border-collapse: collapse;
-}
-
-tr{
-	height: 300px;
-}
-
-td{
-	vertical-align: top;
-}
-
 #newnotetitle{
 	display: block;
 }
