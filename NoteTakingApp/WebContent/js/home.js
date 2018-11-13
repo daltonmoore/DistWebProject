@@ -74,9 +74,9 @@ function createNewNote(){
 	var category = $('#newnotecategory').val();
 	var title = $('#newnotetitle').val();
 	var body = $('#newnotebody').val();
-	var temp = $('<div class=\"note\">'
-		+'<div class=\"noteTitle\">'+ title +'</div>'
-		+'<div class=\"noteContent\">'+ body +'</div>'
+	var temp = $('<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
+		+'<div class=\"noteTitle\">'+ title +'</div>\n'
+		+'<div class=\"noteContent\">'+ body +'</div>\n'
 		+'</div>');
 	$('div.grid.'+category).append($(temp));
 } 
