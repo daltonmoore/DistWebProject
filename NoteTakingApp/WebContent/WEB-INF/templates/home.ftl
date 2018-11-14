@@ -83,13 +83,13 @@
 			<div class="grid ${categories.categoryID}">	
 				<#list usernotes as notes>	
 					<#if notes.categoryID == categories.categoryID>	
-						<div class="note" onclick="noteClick(this)" class="note">
+						<div class="note">
 							<div class="noteTitle">${notes.noteTitle}</div>
 							<div class="noteContent">${notes.noteContent}</div>
-							<input type="hidden" id="noteId" value="${notes.noteID}"/>
-							<input type="hidden" id="categoryId" value="${notes.categoryID}"/>
-							<input type="hidden" id="color" value="${notes.color}"/>
-							<input type="hidden" id="statusID" value="${notes.statusID}"/>
+							<input type="hidden" class="noteId" value="${notes.noteID}"/>
+							<input type="hidden" class="categoryId" value="${notes.categoryID}"/>
+							<input type="hidden" class="color" value="${notes.color}"/>
+							<input type="hidden" class="statusId" value="${notes.statusID}"/>
 							
 						</div>
 					</#if>
@@ -161,6 +161,10 @@
 		<div class="modal-content">
 			<div class="noteTitle" id="modal-title" style="height: 20px;">Modal Title</div>
 			<div class="noteContent" id="modal-text" style="height: 20px;">Modal Text</div>
+			<input type="hidden" id="noteId" value=""/>
+			<input type="hidden" id="categoryId" value=""/>
+			<input type="hidden" id="color" value=""/>
+			<input type="hidden" id="statusId" value=""/>
 			<div style="text-align: right; padding-top: 20px">
 				<input type="image" src="images/paintbrush.png" style="width: 50px; height: 50px; transform: translate(0px, 20px);">
 				<input
@@ -180,7 +184,7 @@
 					</div>
 				</div>
 				<button id="savenote" style="width: 50px; height: 25px;">Save</button>
-				<button onclick="closeNote()" style="width: 60px; height: 25px;">Close</button>
+				<button id="closenote" style="width: 60px; height: 25px;">Close</button>
 			</div>
 		</div>
 	</div>

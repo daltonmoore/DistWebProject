@@ -104,6 +104,12 @@ public class NotesServlet extends HttpServlet
 			Notes note = gson.fromJson(updatenote, Notes.class);
 			System.out.println(updatenote);
 			//do more here
+			
+			PrintWriter writer = response.getWriter();
+			response.setContentType("html/text");
+			writer.write("");
+			
+			
 		}
 	}
 
