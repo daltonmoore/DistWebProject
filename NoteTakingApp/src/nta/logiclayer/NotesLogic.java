@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nta.objectlayer.Notes;
+import nta.persistlayer.DatabaseAccess;
 import nta.persistlayer.NotesPersist;
+import nta.persistlayer.UserPersist;
 
 public class NotesLogic {
 
@@ -34,6 +36,22 @@ public class NotesLogic {
 		}
 		System.out.println("Returning list of notes with size: " + notes.size());
 		return notes;
+	}
+	
+	public static int createNewNote(Notes note) {
+		int NoteID = 0;
+		ResultSet resultset = NotesPersist.createNewNote(note);
+		
+		try {
+			while(resultset.next()) {
+				NoteID = resultset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		DatabaseAccess.disconnect();
+		return NoteID;
 	}
 
 }

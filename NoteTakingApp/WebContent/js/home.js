@@ -1,3 +1,56 @@
+$(function(){
+	$('.searchbar').keyup(searchBar);
+	$('#createnote').click(function(){
+		var accountid = $('#accountId').val();
+		var category = $('#newnotecategory').val();
+		var title = $('#newnotetitle').val();
+		var body = $('#newnotebody').val();
+		
+		var newnote = {
+			NoteTitle: title,
+			NoteContent: body,
+			Color: '#ffffff',   //New note set to white by default
+			AccountID: accountid,
+    		CategoryID: category,
+    		StatusID: '1'       //New note automatically added to notes page, not archive or trash
+		}
+		
+		$.ajax({
+            url: "NotesServlet",
+            type: "get",
+            data: {newnote: JSON.stringify(newnote)},
+            contentType: "application/json; charset=utf-8",
+            dataType: "JSON",
+            success: function(obj){
+            	$('div.grid.'+category).append(
+            			'<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
+        				+'<div class=\"noteTitle\">'+ obj.NoteTitle +'</div>\n'
+        				+'<div class=\"noteContent\">'+ obj.NoteContent +'</div>\n'
+        				+'<input type="hidden" id="noteId" value="'+ obj.NoteID +'"/>\n'
+        				+'<input type="hidden" id="categoryId" value="'+ obj.CategoryID +'"/>\n'
+        				+'<input type="hidden" id="color" value="'+ obj.Color +'"/>\n'
+        				+'<input type="hidden" id="statusid" value="'+ obj.StatusID+'"/>\n'
+  						+'</div>');
+            }
+		});
+		
+		$('#newnotetitle').val("");
+		$('#newnotebody').val("");
+		$('#newnotebtn').css('display', 'block');
+		$('#newnotefields').css('display', 'none');
+		$('#createnote').css('display', 'none');
+		$('#cancelnote').css('display', 'none');
+		
+//		var temp = $('<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
+//				+'<div class=\"noteTitle\">'+ title +'</div>\n'
+//				+'<div class=\"noteContent\">'+ body +'</div>\n'
+//				+'</div>');
+//		$('div.grid.'+category).append($(temp));
+		
+		
+	});
+});
+
 function sideBarClick(){
 	
 }
@@ -17,23 +70,13 @@ function noteClick(item){
 	modalText.contentEditable = "true";
 	modalTitle.contentEditable = "true";
 }
+
 var visible = false;
 
-document.addEventListener("click", function(event){
-	var box = document.getElementById("options");
-	var out = document.getElementById("out");
-	out.innerHTML = event.target.closest(".options");
-	if(event.target.closest(".options") || event.target.closest(".optionbutton")){
-		visible = true;
-		return;
-	}
-	box.style.display = "none";
-	visible = false;
-});
 
-$(function(){
-	$('.searchbar').keyup(searchBar);
-});
+//$(function(){
+//	$('.searchbar').keyup(searchBar);
+//});
 
 $.expr[":"].contains = $.expr.createPseudo(function(arg){
 	return function(elem){
@@ -78,17 +121,6 @@ function showNewNoteFields(){
 	$('#newnotefields').css('display', 'block');
 	$('#createnote').css('display', 'block');
 	$('#cancelnote').css('display', 'block');
-}
-
-function createNewNote(){
-	var category = $('#newnotecategory').val();
-	var title = $('#newnotetitle').val();
-	var body = $('#newnotebody').val();
-	var temp = $('<div class=\"note\">'
-		+'<div class=\"noteTitle\">'+ title +'</div>'
-		+'<div class=\"noteContent\">'+ body +'</div>'
-		+'</div>');
-	$('.uncategorized').append($(temp));
 }
 
 function cancelNewNote(){

@@ -53,7 +53,7 @@ public class UserLogic {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		DatabaseAccess.disconnect();
 		return userid;
 	}
 	
