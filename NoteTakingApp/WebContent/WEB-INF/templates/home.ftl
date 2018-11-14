@@ -61,6 +61,7 @@
 	</nav>
 
 	<div class="main" style="margin-top: 40px;">
+		<input type="hidden" id="accountId" value="${userid}"/>
 		<div>
 			<button id="newnotebtn" onclick="showNewNoteFields()">Create New Note</button>
 			<div id="newnotefields" style="display:none">
@@ -85,7 +86,7 @@
 						<div class="note" onclick="noteClick(this)" class="note">
 							<div class="noteTitle">${notes.noteTitle}</div>
 							<div class="noteContent">${notes.noteContent}</div>
-							<input type="hidden" id="accountId" value="${userid}"/>
+						<!-- <input type="hidden" id="accountId" value="${userid}"/> -->
 							<input type="hidden" id="noteId" value="${notes.noteID}"/>
 							<input type="hidden" id="categoryId" value="${notes.categoryID}"/>
 							<input type="hidden" id="color" value="${notes.color}"/>

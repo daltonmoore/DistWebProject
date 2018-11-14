@@ -1,3 +1,43 @@
+$(function(){
+	$('.searchbar').keyup(searchBar);
+	$('#createnote').click(function(){
+		var accountid = $('#accountId').val();
+		var category = $('#newnotecategory').val();
+		var title = $('#newnotetitle').val();
+		var body = $('#newnotebody').val();
+		var temp = $('<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
+			+'<div class=\"noteTitle\">'+ title +'</div>\n'
+			+'<div class=\"noteContent\">'+ body +'</div>\n'
+			+'</div>');
+		$('div.grid.'+category).append($(temp));
+		
+		var newnote = {
+			NoteTitle: title,
+			NoteContent: body,
+			Color: '#ffffff',   //New note set to white by default
+			AccountID: accountid,
+    		CategoryID: category,
+    		StatusID: '1'       //New note automatically added to notes page, not archive or trash
+		}
+		
+		$.ajax({
+            url: "NotesServlet",
+            type: "get",
+            data: {newnote: JSON.stringify(newnote)},
+            contentType: "application/json; charset=utf-8",
+            dataType: "JSON",
+		});
+		
+		$('#newnotetitle').val("");
+		$('#newnotebody').val("");
+		$('#newnotebtn').css('display', 'block');
+		$('#newnotefields').css('display', 'none');
+		$('#createnote').css('display', 'none');
+		$('#cancelnote').css('display', 'none');
+		
+	});
+});
+
 function sideBarClick(){
 	
 }
@@ -21,9 +61,9 @@ function noteClick(item){
 var visible = false;
 
 
-$(function(){
-	$('.searchbar').keyup(searchBar);
-});
+//$(function(){
+//	$('.searchbar').keyup(searchBar);
+//});
 
 $.expr[":"].contains = $.expr.createPseudo(function(arg){
 	return function(elem){
@@ -70,16 +110,16 @@ function showNewNoteFields(){
 	$('#cancelnote').css('display', 'block');
 }
 
-function createNewNote(){
-	var category = $('#newnotecategory').val();
-	var title = $('#newnotetitle').val();
-	var body = $('#newnotebody').val();
-	var temp = $('<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
-		+'<div class=\"noteTitle\">'+ title +'</div>\n'
-		+'<div class=\"noteContent\">'+ body +'</div>\n'
-		+'</div>');
-	$('div.grid.'+category).append($(temp));
-} 
+//function createNewNote(){
+//	var category = $('#newnotecategory').val();
+//	var title = $('#newnotetitle').val();
+//	var body = $('#newnotebody').val();
+//	var temp = $('<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
+//		+'<div class=\"noteTitle\">'+ title +'</div>\n'
+//		+'<div class=\"noteContent\">'+ body +'</div>\n'
+//		+'</div>');
+//	$('div.grid.'+category).append($(temp));
+//} 
 
 function cancelNewNote(){
 	$('#newnotebtn').css('display', 'block');
