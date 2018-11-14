@@ -2,8 +2,8 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="js/jquery.js"></script>
-	<link rel="stylesheet" href="Bootstrap/css/bootstrap.css">
-	<script src="Bootstrap/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+	<script src="js/bootstrap/bootstrap.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/default.css">
@@ -104,7 +104,17 @@
 			<tr>
 			</tr>
 		</table>
-	-->
+		-->
+		<div>
+			<#list usernotes as item>
+				${item.getNoteTitle()}
+			</#list>
+		</div>
+		<div>
+			<#list categories as item>
+				${item.getCategoryName()}
+			</#list>
+		</div>
 
 	</div>
 	<div id="modal">
