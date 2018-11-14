@@ -86,11 +86,10 @@
 						<div class="note" onclick="noteClick(this)" class="note">
 							<div class="noteTitle">${notes.noteTitle}</div>
 							<div class="noteContent">${notes.noteContent}</div>
-						<!-- <input type="hidden" id="accountId" value="${userid}"/> -->
 							<input type="hidden" id="noteId" value="${notes.noteID}"/>
 							<input type="hidden" id="categoryId" value="${notes.categoryID}"/>
 							<input type="hidden" id="color" value="${notes.color}"/>
-							<input type="hidden" id="color" value="${notes.statusID}"/>
+							<input type="hidden" id="statusID" value="${notes.statusID}"/>
 							
 						</div>
 					</#if>
@@ -172,7 +171,7 @@
 						<a>Delete note</a>
 					</div>
 				</div>
-				<button style="width: 50px; height: 25px;">Save</button>
+				<button id="savenote" style="width: 50px; height: 25px;">Save</button>
 				<button onclick="closeNote()" style="width: 60px; height: 25px;">Close</button>
 			</div>
 		</div>

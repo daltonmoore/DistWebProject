@@ -80,7 +80,11 @@ public class NotesServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		//newnote json object sent from ajax 
 		String newnote = request.getParameter("newnote");
+		
+		//update note in db
+		String updatenote = request.getParameter("updatenote");
 		
 		if(newnote!=null) {
 			Gson gson = new Gson();
@@ -93,6 +97,13 @@ public class NotesServlet extends HttpServlet
 			System.out.println(json);
 			PrintWriter writer = response.getWriter();
 			writer.println(json);
+		}
+		
+		if(updatenote!=null) {
+			Gson gson = new Gson();
+			Notes note = gson.fromJson(updatenote, Notes.class);
+			System.out.println(updatenote);
+			//do more here
 		}
 	}
 

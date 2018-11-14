@@ -1,11 +1,11 @@
 $(function(){
-	$('.searchbar').keyup(searchBar);
 	$('#createnote').click(function(){
 		var accountid = $('#accountId').val();
 		var category = $('#newnotecategory').val();
 		var title = $('#newnotetitle').val();
 		var body = $('#newnotebody').val();
 		
+		//Json object
 		var newnote = {
 			NoteTitle: title,
 			NoteContent: body,
@@ -40,16 +40,9 @@ $(function(){
 		$('#newnotefields').css('display', 'none');
 		$('#createnote').css('display', 'none');
 		$('#cancelnote').css('display', 'none');
-		
-//		var temp = $('<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
-//				+'<div class=\"noteTitle\">'+ title +'</div>\n'
-//				+'<div class=\"noteContent\">'+ body +'</div>\n'
-//				+'</div>');
-//		$('div.grid.'+category).append($(temp));
-		
-		
 	});
 });
+
 
 function sideBarClick(){
 	
@@ -69,14 +62,48 @@ function noteClick(item){
 	modalTitle.innerHTML = noteChildren[1].textContent;
 	modalText.contentEditable = "true";
 	modalTitle.contentEditable = "true";
+	
+	$("#savenote").click(function(){
+		var accountid = $('#accountId').val();
+		var title = modalText.innerHTML;
+		var text = noteChildren[3].textContent;
+		var modalNoteId = noteChildren[5].value;
+		var modalCategoryId = noteChildren[7].value;
+		var modalColor = noteChildren[9].value;
+		var modalStatusId = noteChildren[11].value;	
+		
+		var updatenote = {
+				NoteTitle: title,
+				NoteContent: text,
+				Color: modalColor,   
+				AccountID: accountid,
+	    		CategoryID: modalCategoryId,
+	    		StatusID: modalStatusId       
+			}
+		
+		$.ajax({
+            url: "NotesServlet",
+            type: "get",
+            data: {updatenote: JSON.stringify(updatenote)},
+            contentType: "application/json; charset=utf-8",
+            dataType: "JSON",
+            success: function(){
+            	alert("Note Successfully Updated!")
+            }
+		});
+		closeNote();
+		
+	});
 }
 
 var visible = false;
 
 
-//$(function(){
-//	$('.searchbar').keyup(searchBar);
-//});
+$(function(){
+	$('.searchbar').keyup(searchBar);
+	$('#savenote').click();
+});
+
 
 $.expr[":"].contains = $.expr.createPseudo(function(arg){
 	return function(elem){
