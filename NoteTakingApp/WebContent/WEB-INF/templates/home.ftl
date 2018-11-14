@@ -144,7 +144,17 @@
 			<tr>
 			</tr>
 		</table>
-	-->
+		-->
+		<div>
+			<#list usernotes as item>
+				${item.getNoteTitle()}
+			</#list>
+		</div>
+		<div>
+			<#list categories as item>
+				${item.getCategoryName()}
+			</#list>
+		</div>
 
 	</div>
 	<div id="modal">
