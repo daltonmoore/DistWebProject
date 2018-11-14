@@ -5,11 +5,6 @@ $(function(){
 		var category = $('#newnotecategory').val();
 		var title = $('#newnotetitle').val();
 		var body = $('#newnotebody').val();
-		var temp = $('<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
-			+'<div class=\"noteTitle\">'+ title +'</div>\n'
-			+'<div class=\"noteContent\">'+ body +'</div>\n'
-			+'</div>');
-		$('div.grid.'+category).append($(temp));
 		
 		var newnote = {
 			NoteTitle: title,
@@ -26,6 +21,17 @@ $(function(){
             data: {newnote: JSON.stringify(newnote)},
             contentType: "application/json; charset=utf-8",
             dataType: "JSON",
+            success: function(obj){
+            	$('div.grid.'+category).append(
+            			'<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
+        				+'<div class=\"noteTitle\">'+ obj.NoteTitle +'</div>\n'
+        				+'<div class=\"noteContent\">'+ obj.NoteContent +'</div>\n'
+        				+'<input type="hidden" id="noteId" value="'+ obj.NoteID +'"/>\n'
+        				+'<input type="hidden" id="categoryId" value="'+ obj.CategoryID +'"/>\n'
+        				+'<input type="hidden" id="color" value="'+ obj.Color +'"/>\n'
+        				+'<input type="hidden" id="statusid" value="'+ obj.StatusID+'"/>\n'
+  						+'</div>');
+            }
 		});
 		
 		$('#newnotetitle').val("");
@@ -34,6 +40,13 @@ $(function(){
 		$('#newnotefields').css('display', 'none');
 		$('#createnote').css('display', 'none');
 		$('#cancelnote').css('display', 'none');
+		
+//		var temp = $('<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
+//				+'<div class=\"noteTitle\">'+ title +'</div>\n'
+//				+'<div class=\"noteContent\">'+ body +'</div>\n'
+//				+'</div>');
+//		$('div.grid.'+category).append($(temp));
+		
 		
 	});
 });
@@ -109,17 +122,6 @@ function showNewNoteFields(){
 	$('#createnote').css('display', 'block');
 	$('#cancelnote').css('display', 'block');
 }
-
-//function createNewNote(){
-//	var category = $('#newnotecategory').val();
-//	var title = $('#newnotetitle').val();
-//	var body = $('#newnotebody').val();
-//	var temp = $('<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
-//		+'<div class=\"noteTitle\">'+ title +'</div>\n'
-//		+'<div class=\"noteContent\">'+ body +'</div>\n'
-//		+'</div>');
-//	$('div.grid.'+category).append($(temp));
-//} 
 
 function cancelNewNote(){
 	$('#newnotebtn').css('display', 'block');

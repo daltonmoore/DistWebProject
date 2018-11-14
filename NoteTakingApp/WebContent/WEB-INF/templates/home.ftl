@@ -73,7 +73,7 @@
 					</#list>
 				</select>
 			</div>
-			<button id="createnote" onclick="createNewNote()" style="display:none">Create</button>
+			<button id="createnote" style="display:none">Create</button>
 			<button id="cancelnote" onclick="cancelNewNote()" style="display:none">Cancel</button>
 		</div>
 		
@@ -90,6 +90,8 @@
 							<input type="hidden" id="noteId" value="${notes.noteID}"/>
 							<input type="hidden" id="categoryId" value="${notes.categoryID}"/>
 							<input type="hidden" id="color" value="${notes.color}"/>
+							<input type="hidden" id="color" value="${notes.statusID}"/>
+							
 						</div>
 					</#if>
 				</#list>

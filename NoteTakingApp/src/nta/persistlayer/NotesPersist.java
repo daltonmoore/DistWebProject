@@ -16,13 +16,15 @@ public class NotesPersist {
 		
 	}
 
-	public static void createNewNote(Notes note) {
-		String query = " Insert into notes(NoteTitle,NoteContent,Color,AccountID,CategoryID,StatusID) "
+	public static ResultSet createNewNote(Notes note) {
+		String query = "Insert into notes(NoteTitle,NoteContent,Color,AccountID,CategoryID,StatusID) "
 				+ "VALUES('"+note.getNoteTitle()+"','"+note.getNoteContent()+"','"+note.getColor()+"',"+note.getAccountID()+","+
 				note.getCategoryID()+","+note.getStatusID()+");";
+		String query2 = "Select last_insert_id();";
 		
-		DatabaseAccess.create(query);
+		ResultSet results = DatabaseAccess.createAndReturnKey(query,query2);
 		
+		return results;
 	}
 
 }

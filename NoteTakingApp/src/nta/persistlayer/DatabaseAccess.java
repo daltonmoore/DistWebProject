@@ -59,6 +59,25 @@ public class DatabaseAccess {
 		return numRowsAffected;
 	}
 	
+	public static ResultSet createAndReturnKey (String query, String query2) {
+		con = getConnection();
+		int numRowsAffected = 0; //user to store number of affected rows
+		ResultSet resultset = null;
+		try {
+			Statement statement = con.createStatement();
+			numRowsAffected = statement.executeUpdate(query);
+			Statement statement2 = con.createStatement();
+			resultset = statement2.executeQuery(query2);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(numRowsAffected + " were successfully created.");
+		
+		return resultset;
+	}
+	
+	
 	public static int update (String query) {
 		con = getConnection();
 		int numRowsAffected = 0;

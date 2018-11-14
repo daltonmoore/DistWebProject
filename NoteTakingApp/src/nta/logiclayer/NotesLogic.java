@@ -38,9 +38,20 @@ public class NotesLogic {
 		return notes;
 	}
 	
-	public static void createNewNote(Notes note) {
-		NotesPersist.createNewNote(note);
+	public static int createNewNote(Notes note) {
+		int NoteID = 0;
+		ResultSet resultset = NotesPersist.createNewNote(note);
+		
+		try {
+			while(resultset.next()) {
+				NoteID = resultset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		DatabaseAccess.disconnect();
+		return NoteID;
 	}
 
 }

@@ -4,6 +4,7 @@ package nta.boundary;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -85,7 +86,13 @@ public class NotesServlet extends HttpServlet
 			Gson gson = new Gson();
 			Notes note = gson.fromJson(newnote, Notes.class);
 			System.out.println("Adding new note.... \nNote title: " + note.getNoteTitle() + " | Note content: "+ note.getNoteContent());
-			NotesLogic.createNewNote(note);
+			int NoteID = NotesLogic.createNewNote(note);
+			note.setNoteID(NoteID);
+			
+			String json = gson.toJson(note);
+			System.out.println(json);
+			PrintWriter writer = response.getWriter();
+			writer.println(json);
 		}
 	}
 
