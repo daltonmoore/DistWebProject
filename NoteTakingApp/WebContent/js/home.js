@@ -34,7 +34,7 @@ function createNote(){
         dataType: "JSON",
         success: function(obj){
         	$('div.grid.'+category).append(
-        			'<div class=\"note\" onclick=\"noteClick(this)\" class=\"note\">\n'
+        			'<div class=\"note\">\n'
     				+'<div class=\"noteTitle\">'+ obj.NoteTitle +'</div>\n'
     				+'<div class=\"noteContent\">'+ obj.NoteContent +'</div>\n'
     				+'<input type="hidden" class="noteId" value="'+ obj.NoteID +'"/>\n'
@@ -42,6 +42,8 @@ function createNote(){
     				+'<input type="hidden" class="color" value="'+ obj.Color +'"/>\n'
     				+'<input type="hidden" class="statusid" value="'+ obj.StatusID+'"/>\n'
 						+'</div>');
+        	//Update noteClick
+        	$('.note').click(noteClick);
         }
 	});
 	
@@ -102,18 +104,19 @@ function saveNote(){
         type: "get",
         data: {updatenote: JSON.stringify(updatenote)},
         contentType: "application/json; charset=utf-8",
+//        dataType: "JSON",
         success: function(data){
         	//add Successful save custom alert
+        	console.log(data);
         }
 	});
 	
 	//update hidden note fields
 	$('.note .noteTitle:hidden').text(modalTitle);
 	$('.note .noteContent:hidden').text(modalContent);
-	
+
 	//close modal note
 	closeNote();
-	
 }
 
 var visible = false;

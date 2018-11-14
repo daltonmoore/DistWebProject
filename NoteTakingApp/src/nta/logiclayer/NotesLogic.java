@@ -35,6 +35,7 @@ public class NotesLogic {
 			e.printStackTrace();
 		}
 		System.out.println("Returning list of notes with size: " + notes.size());
+		DatabaseAccess.disconnect();
 		return notes;
 	}
 	
@@ -52,6 +53,13 @@ public class NotesLogic {
 		
 		DatabaseAccess.disconnect();
 		return NoteID;
+	}
+
+	public static int updateNote(Notes note) {
+		int numRowsAffected=0;
+		numRowsAffected = NotesPersist.updateNote(note);
+		DatabaseAccess.disconnect();
+		return numRowsAffected;
 	}
 
 }

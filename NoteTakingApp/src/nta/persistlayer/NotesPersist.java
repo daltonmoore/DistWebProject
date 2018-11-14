@@ -27,4 +27,14 @@ public class NotesPersist {
 		return results;
 	}
 
+	public static int updateNote(Notes note) {
+		int numRowsAffected = 0;
+		String query = "Update notes set NoteTitle='"+note.getNoteTitle()+"', NoteContent='"+note.getNoteContent()+"', Color='"
+				+note.getColor()+"', CategoryID="+note.getCategoryID()+", StatusID="+note.getStatusID()+" WHERE NoteID="+note.getNoteID();
+		
+		numRowsAffected = DatabaseAccess.update(query);
+		
+		return numRowsAffected;
+	}
+
 }

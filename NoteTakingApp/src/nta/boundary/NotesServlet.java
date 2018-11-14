@@ -103,11 +103,17 @@ public class NotesServlet extends HttpServlet
 			Gson gson = new Gson();
 			Notes note = gson.fromJson(updatenote, Notes.class);
 			System.out.println(updatenote);
-			//do more here
+			System.out.println("Updating note.... \nNote title: " + note.getNoteTitle() + " | Note content: "+ note.getNoteContent());
 			
+			int numRowsAffected = NotesLogic.updateNote(note);
 			PrintWriter writer = response.getWriter();
 			response.setContentType("html/text");
-			writer.write("");
+			
+			if(numRowsAffected > 0) {
+				writer.write("Successfully Updated "+numRowsAffected+" rows.");
+			}else {
+				writer.write("An error occured when updating.");
+			}
 			
 			
 		}
