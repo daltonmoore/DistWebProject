@@ -144,7 +144,7 @@
 			<tr>
 			</tr>
 		</table>
-		-->
+		
 		<div>
 			<#list usernotes as item>
 				${item.getNoteTitle()}
@@ -155,14 +155,12 @@
 				${item.getCategoryName()}
 			</#list>
 		</div>
-
+	-->
 	</div>
 	<div id="modal">
 		<div class="modal-content">
 			<div class="noteTitle" id="modal-title" style="height: 20px;">Modal Title</div>
-			
 			<div class="noteContent" id="modal-text" style="height: 20px;">Modal Text</div>
-			
 			<div style="text-align: right; padding-top: 20px">
 				<input type="image" src="images/paintbrush.png" style="width: 50px; height: 50px; transform: translate(0px, 20px);">
 				<input

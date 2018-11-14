@@ -64,17 +64,31 @@ function noteClick(item){
 	modalTitle.contentEditable = "true";
 	
 	$("#savenote").click(function(){
+		var title;
+		var body;
+	
+		var contents = modal.querySelectorAll('div.noteTitle, div.noteContent');
+		for (var i = 0; i < contents.length; i++) {
+			console.log(contents[i]);
+			console.log(contents[i].innerText);
+			if(i == 0){
+				title = contents[i].innerText;
+				
+			}else{
+				body = contents[i].innerText;
+			}
+		}
+			
 		var accountid = $('#accountId').val();
-		var title = modalText.innerHTML;
-		var text = noteChildren[3].textContent;
 		var modalNoteId = noteChildren[5].value;
 		var modalCategoryId = noteChildren[7].value;
 		var modalColor = noteChildren[9].value;
 		var modalStatusId = noteChildren[11].value;	
 		
 		var updatenote = {
+				NoteID: modalNoteId,
 				NoteTitle: title,
-				NoteContent: text,
+				NoteContent: body,
 				Color: modalColor,   
 				AccountID: accountid,
 	    		CategoryID: modalCategoryId,
@@ -101,7 +115,6 @@ var visible = false;
 
 $(function(){
 	$('.searchbar').keyup(searchBar);
-	$('#savenote').click();
 });
 
 
