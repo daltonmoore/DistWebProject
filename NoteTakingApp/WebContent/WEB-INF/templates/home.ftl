@@ -32,7 +32,7 @@
 			<button id="newnotebtn">Create New Note</button>
 			<div id="newnotefields" style="display:none">
 				<input id="newnotetitle" type="text" placeholder="Note Title">
-				<textarea id="newnotebody" type="text" placeholder="Note Body"></textarea>
+				<div id="newnotebody" type="text" contenteditable="true"></div>
 				<select id="newnotecategory">
 					<#list categories as categories>	
 						<option value="${categories.categoryID}">${categories.categoryName}</option>

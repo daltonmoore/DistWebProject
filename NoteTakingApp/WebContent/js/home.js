@@ -13,7 +13,6 @@ $(function(){
 function countCharacters(){
 	var count = $('#modal-text').text().length;
 
-	
 	if(count > 235 && count < 255){
 		$('#savenote').attr('disabled',false);
 		$('#charcounter').css('color','gold');
@@ -37,7 +36,7 @@ function createNote(){
 	var accountid = $('#accountId').val();
 	var category = $('#newnotecategory').val();
 	var title = $('#newnotetitle').val();
-	var body = $('#newnotebody').val();
+	var body = $('#newnotebody').html();
 	
 	//Json object
 	var newnote = {
@@ -90,10 +89,10 @@ function noteClick(){
 	$(this).hide();   //hide this note
 	$('#modal').show();    //show modal note
 	
-	$('#modal-title').text($(this).find('.noteTitle').text());   //Add this note content to modal and set editable
+	$('#modal-title').html($(this).find('.noteTitle').html());   //Add this note content to modal and set editable
 	$('#modal-title').attr('contenteditable',true);
 	
-	$('#modal-text').text($(this).find('.noteContent').text());   //Add this note content to modal and set editable
+	$('#modal-text').html($(this).find('.noteContent').html());   //Add this note content to modal and set editable
 	$('#modal-text').attr('contenteditable',true);
 
 }
@@ -101,8 +100,8 @@ function noteClick(){
 //Send note changes to Servlet
 function saveNote(){
 	//Get modal data
-	var modalTitle = $('#modal-title').text();
-	var modalContent = $('#modal-text').text();
+	var modalTitle = $('#modal-title').html();
+	var modalContent = $('#modal-text').html();
 	var accountid = $('#accountId').val();
 	var modalNoteId = $('#noteId').val();
 	var modalCategoryId = $('#categoryId').val();
@@ -135,8 +134,8 @@ function saveNote(){
 	});
 	
 	//update hidden note fields
-	$('.note .noteTitle:hidden').text(modalTitle);
-	$('.note .noteContent:hidden').text(modalContent);
+	$('.note .noteTitle:hidden').html(modalTitle);
+	$('.note .noteContent:hidden').html(modalContent);
 
 	//close modal note
 	closeNote();
@@ -185,7 +184,7 @@ function showNewNoteFields(){
 //Hide new note view
 function cancelNewNote(){
 	$('#newnotetitle').val("");
-	$('#newnotebody').val("");
+	$('#newnotebody').html("");
 	$('#newnotebtn').css('display', 'block');
 	$('#newnotefields').css('display', 'none');
 	$('#createnote').css('display', 'none');

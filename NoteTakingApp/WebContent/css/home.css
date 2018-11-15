@@ -176,6 +176,8 @@ body{
 	float: left;
 	overflow:auto;
 	max-height: 300px;
+	display:table;
+	table-layout: fixed;
 }
 
 .noteTitle{
@@ -200,9 +202,17 @@ body{
 }
 
 #newnotetitle{
+	border: 1px solid gray;
+	width: 215px;
 	display: block;
 }
 
 #newnotebody{
+	background-color: white;
+	border: 1px solid gray;
+	width: 215px;
+	height: 100px;
+	max-height: 100px;
+	overflow: auto;
 	display: block;
 }
