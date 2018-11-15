@@ -1,3 +1,7 @@
+.main{
+	margin-top: 40px;
+}
+
 #sidebar {
     width: 250px;
     position: fixed;
@@ -78,7 +82,8 @@ body{
 }
 
 .header{
-	position: absolute;
+	/*position: absolute;*/
+	position: relative;
 	margin: 22px 16px;
 }
 
@@ -99,18 +104,65 @@ body{
 .modal-content{
 	background-color: #fefefe;
     position:relative;
+    table-layout:fixed;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     display: table;
-    width: 30%;
+    width: 40%;
+    max-width: 600px;
     box-shadow: 5px 5px 5px grey;
 }
 
 #modal-text{
 	display: table-row;
-	width: 250px;
-	padding-bottom:50px;
+	position: relative;
+	width: inherit;
+	max-width: inherit;
+	padding-bottom: 50px;
+	padding-top: 50px;
+	height: 20px;
+}
+
+#modal-title{
+	height: 20px;
+	padding-bottom:25px;
+}
+
+#savenote{
+	width: 50px; 
+	height: 25px;
+}
+
+#closenote{
+	width: 50px; 
+	height: 25px;
+}
+
+#optionbutton{
+	width: 80px;
+	height: 25px;
+}
+
+#archive{
+	width: 50px; 
+	height: 50px; 
+	transform: translate(0px, 20px);
+}
+
+#changecolor{
+	width: 50px; 
+	height: 50px; 
+	transform: translate(0px, 20px);
+}
+
+#buttons{
+	text-align: right; 
+	padding-top: 20px;
+}
+
+#charcounter{
+	float: right;
 }
 
 .note{
@@ -119,13 +171,11 @@ body{
 	box-sizing: border-box;
 	width: 256px;
 	height: 200px;
-	max-height:300px;
 	box-shadow: 5px 5px 5px grey;
-	margin: 16px;
-	/*position: absolute;*/
-	
-	margin-top:50px;
+	margin:25px 16px;
 	float: left;
+	overflow:auto;
+	max-height: 300px;
 }
 
 .noteTitle{
@@ -140,8 +190,14 @@ body{
 	text-align: left;
 	font-family: 'Roboto', Arial;
 	font-size: 15px;
+	width: 215px;
+    word-wrap: break-word;
 }
 
+.grid{
+	display: grid;
+	grid-template-columns: 300px 300px 300px 300px 300px;
+}
 
 #newnotetitle{
 	display: block;

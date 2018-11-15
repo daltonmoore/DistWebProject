@@ -9,31 +9,6 @@
 	<link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<script src="js/home.js"></script>
-	<style>
-		.note{
-			margin:25px 16px;
-			overflow:auto;
-			max-height: 300px;
-		}
-		
-		.noteContent{
-			width: 215px;
-    		word-wrap: break-word;
-		}
-		
-		.grid{
-			display: grid;
-			grid-template-columns: 300px 300px 300px 300px 300px;
-		
-		}
-		
-		.header{
-			position: relative;
-			margin: 22px 16px;
-		}
-		
-	</style>
-
 </head>
 <body>
 	<header class="navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -42,7 +17,7 @@
 		<div style="display: inline; float: right; color: white; padding-top: 6px; padding-right: 6px;" class="nav-item"><span>${user}</span></div>
 	</header>
 	
-	<nav class="nav flex-column" style="position: fixed;">
+	<nav id="navigate" class="nav flex-column" style="position: fixed;">
 		<form action="Navigate" method="get">
 				<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
 				<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Create Header">
@@ -50,7 +25,7 @@
 		</form>
 	</nav>
 
-	<div class="main" style="margin-top: 40px;">
+	<div class="main">
 		<input type="hidden" id="accountId" value="${userid}"/>
 		
 		<div>
@@ -89,32 +64,31 @@
 	
 	<div id="modal">
 		<div class="modal-content">
-			<div class="noteTitle" id="modal-title" style="height: 20px;">Modal Title</div>
-			<div class="noteContent" id="modal-text" style="height: 20px;">Modal Text</div>
+			<div class="noteTitle" id="modal-title">Modal Title</div>
+			<div class="noteContent" id="modal-text">Modal Text</div>
 			<input type="hidden" id="noteId" value=""/>
 			<input type="hidden" id="categoryId" value=""/>
 			<input type="hidden" id="color" value=""/>
 			<input type="hidden" id="statusId" value=""/>
-			<div style="text-align: right; padding-top: 20px">
-				<input type="image" src="images/paintbrush.png" style="width: 50px; height: 50px; transform: translate(0px, 20px);">
-				<input
+			<div id="charcounter"></div>
+			<div id="buttons">
+				<input id="changecolor" type="image" src="images/paintbrush.png">
+				<input id="archive"
 					onclick="changeColor()"
 					type="image" 
-					src="images/archive.png" 
-					style="width: 50px; height: 50px; transform: translate(0px, 20px);">
+					src="images/archive.png">
 				<div class="dropdown">
 					<button id="optionbutton" 
 						class="optionbutton" 
-						onclick="noteOptions()" 
-						style="width: 80px; height: 25px;">
+						onclick="noteOptions()">
 						Options
 					</button>
 					<div id="options" class="options">
 						<a>Delete note</a>
 					</div>
 				</div>
-				<button id="savenote" style="width: 50px; height: 25px;">Save</button>
-				<button id="closenote" style="width: 60px; height: 25px;">Close</button>
+				<button id="savenote">Save</button>
+				<button id="closenote">Close</button>
 			</div>
 		</div>
 	</div>

@@ -11,11 +11,23 @@ $(function(){
 
 //Counte modal-text characters to keep under 255
 function countCharacters(){
-	var count = $(this).length;
-	console.log(count);
-	if(count > 255){
-		$('#modal-title').attr('contenteditable',false);
-		$('#modal-text').attr('contenteditable',false);
+	var count = $('#modal-text').text().length;
+
+	
+	if(count > 235 && count < 255){
+		$('#savenote').attr('disabled',false);
+		$('#charcounter').css('color','gold');
+		$('#charcounter').text(255-count);
+	}else if(count == 255){
+		$('#savenote').attr('disabled',false);
+		$('#charcounter').css('color','red');
+		$('#charcounter').text(255-count);
+	}else if(count > 255){
+		$('#savenote').attr('disabled',true);
+		$('#charcounter').css('color','red');
+		$('#charcounter').text(255-count);
+	}else {
+		$('#charcounter').text("");
 	}
 }
 
