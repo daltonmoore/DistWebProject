@@ -199,14 +199,18 @@ function searchBar(){
 //Delete selected note
 function deleteNote(){
 	var noteId = $('#noteId').val();
-	var accountId = $('#accountId').val();
 
 	$.ajax({
 		url: "NotesServlet",
 		method: "get",
-		data: { deleteId: noteId, accountId: accountId},
+		data: { deleteId: noteId},
 		success: function(data){
 			console.log(data);
 		}
 	});
+	
+	$('.note:hidden').remove();
+	$('#modal').hide();		//Hide modal 
+	
+	
 }
