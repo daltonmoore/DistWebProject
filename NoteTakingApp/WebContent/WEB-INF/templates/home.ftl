@@ -72,11 +72,12 @@
 			<input type="hidden" id="statusId" value=""/>
 			<div id="charcounter"></div>
 			<div id="buttons">
-				<input id="changecolor" type="image" src="images/paintbrush.png">
+				<input id="trash" type="image" src="images/trash-4x.png">
+				<input id="changecolor" type="image" src="images/eyedropper-4x.png">
 				<input id="archive"
 					onclick="changeColor()"
 					type="image" 
-					src="images/archive.png">
+					src="images/box-4x.png">
 				<div class="dropdown">
 					<button id="optionbutton" 
 						class="optionbutton" 

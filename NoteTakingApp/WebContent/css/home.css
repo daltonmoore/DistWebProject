@@ -145,15 +145,21 @@ body{
 }
 
 #archive{
-	width: 50px; 
-	height: 50px; 
-	transform: translate(0px, 20px);
+	opacity: 0.5;
+	padding: 5px;
+	transform: translate(0px, 10px);
+}
+
+#trash{
+	opacity: 0.5;
+	padding: 5px;
+	transform: translate(0px, 10px)
 }
 
 #changecolor{
-	width: 50px; 
-	height: 50px; 
-	transform: translate(0px, 20px);
+	opacity: 0.5;
+	padding: 5px;
+	transform: translate(0px, 10px);
 }
 
 #buttons{
