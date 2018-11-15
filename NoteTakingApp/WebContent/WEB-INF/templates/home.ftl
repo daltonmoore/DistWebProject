@@ -48,7 +48,7 @@
 			<div class="grid ${categories.categoryID}">	
 				<#list usernotes as notes>	
 					<#if notes.categoryID == categories.categoryID>	
-						<div class="note">
+						<div class="note" style="background-color: ${notes.color}">
 							<div class="noteTitle">${notes.noteTitle}</div>
 							<div class="noteContent">${notes.noteContent}</div>
 							<input type="hidden" class="noteId" value="${notes.noteID}"/>
