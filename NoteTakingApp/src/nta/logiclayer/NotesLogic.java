@@ -62,5 +62,10 @@ public class NotesLogic {
 		return numRowsAffected;
 	}
 
+	public static int deleteNote(String deleteid) {
+		int numRowsAffected = NotesPersist.deleteNote(deleteid);
+		return numRowsAffected;
+	}
+
 }
 

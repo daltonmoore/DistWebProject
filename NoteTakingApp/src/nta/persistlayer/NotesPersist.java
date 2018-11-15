@@ -37,4 +37,13 @@ public class NotesPersist {
 		return numRowsAffected;
 	}
 
+	public static int deleteNote(String deleteid) {
+		int numRowsAffected = 0;
+		String query = "Delete from notes where NoteID="+deleteid;
+		
+		numRowsAffected = DatabaseAccess.delete(query);
+		
+		return numRowsAffected;
+	}
+
 }

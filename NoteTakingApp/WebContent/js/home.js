@@ -7,6 +7,7 @@ $(function(){
 	$('#newnotebtn').click(showNewNoteFields);
 	$('#cancelnote').click(cancelNewNote);
 	$('#modal-text').keyup(countCharacters);
+	$('#trash').click(deleteNote);
 });
 
 //Counte modal-text characters to keep under 255
@@ -126,7 +127,6 @@ function saveNote(){
         type: "get",
         data: {updatenote: JSON.stringify(updatenote)},
         contentType: "application/json; charset=utf-8",
-//        dataType: "JSON",
         success: function(data){
         	//add Successful save custom alert
         	console.log(data);
@@ -195,4 +195,18 @@ function cancelNewNote(){
 function searchBar(){
 	$('.note:not(:contains('+ $('.searchbar').val() +'))').css('display', 'none');
 	$('.note:contains('+ $('.searchbar').val() +')').css('display', 'block');
+}
+//Delete selected note
+function deleteNote(){
+	var noteId = $('#noteId').val();
+	var accountId = $('#accountId').val();
+
+	$.ajax({
+		url: "NotesServlet",
+		method: "get",
+		data: { deleteId: noteId, accountId: accountId},
+		success: function(data){
+			console.log(data);
+		}
+	});
 }

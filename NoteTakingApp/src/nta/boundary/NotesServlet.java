@@ -86,6 +86,9 @@ public class NotesServlet extends HttpServlet
 		//update note in db
 		String updatenote = request.getParameter("updatenote");
 		
+		//Note to be deleted
+		String deleteid = request.getParameter("deleteId");
+		
 		if(newnote!=null) {
 			Gson gson = new Gson();
 			Notes note = gson.fromJson(newnote, Notes.class);
@@ -114,8 +117,19 @@ public class NotesServlet extends HttpServlet
 			}else {
 				writer.write("An error occured when updating.");
 			}
+		}
+		
+		if(deleteid!=null) {
+			int numRowsAffected = NotesLogic.deleteNote(deleteid);
 			
+			PrintWriter writer = response.getWriter();
+			response.setContentType("html/text");
 			
+			if(numRowsAffected > 0) {
+				writer.write("Successfully Deleted "+numRowsAffected+" rows.");
+			}else {
+				writer.write("An error occured when deleting.");
+			}
 		}
 	}
 
