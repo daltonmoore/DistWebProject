@@ -74,6 +74,7 @@
 
 body{
 	font-family: Ubuntu;
+	background-color: #F5F5F5;
 }
 
 .header{
@@ -97,23 +98,32 @@ body{
 
 .modal-content{
 	background-color: #fefefe;
+    position:relative;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
+    display: table;
     width: 30%;
     box-shadow: 5px 5px 5px grey;
+}
+
+#modal-text{
+	display: table-row;
+	width: 250px;
+	padding-bottom:50px;
 }
 
 .note{
 	background-color: #ffffff;
 	padding: 10px;
 	box-sizing: border-box;
-	width: 240px;
+	width: 256px;
 	height: 200px;
+	max-height:300px;
 	box-shadow: 5px 5px 5px grey;
 	margin: 16px;
 	/*position: absolute;*/
-	display: block;
+	
 	margin-top:50px;
 	float: left;
 }

@@ -6,7 +6,18 @@ $(function(){
 	$('#createnote').click(createNote);
 	$('#newnotebtn').click(showNewNoteFields);
 	$('#cancelnote').click(cancelNewNote);
+	$('#modal-text').keyup(countCharacters);
 });
+
+//Counte modal-text characters to keep under 255
+function countCharacters(){
+	var count = $(this).length;
+	console.log(count);
+	if(count > 255){
+		$('#modal-title').attr('contenteditable',false);
+		$('#modal-text').attr('contenteditable',false);
+	}
+}
 
 //Create new note function
 function createNote(){

@@ -11,24 +11,14 @@
 	<script src="js/home.js"></script>
 	<style>
 		.note{
-			position:relative;
-			margin-top:50px;
-			
-		}
-		table{
-			border-collapse: collapse;
-		}
-
-		tr.header{
-			height: 50px;
+			margin:25px 16px;
+			overflow:auto;
+			max-height: 300px;
 		}
 		
-		tr.notes{
-			height: 300px;
-		}
-
-		td{
-			vertical-align: top;
+		.noteContent{
+			width: 215px;
+    		word-wrap: break-word;
 		}
 		
 		.grid{
