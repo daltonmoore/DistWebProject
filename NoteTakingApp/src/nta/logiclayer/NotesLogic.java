@@ -53,6 +53,9 @@ public class NotesLogic {
 		DatabaseAccess.disconnect();
 		return NoteID;
 	}
-
+	
+	public static int updateNote(Notes note) {
+		return NotesPersist.updateNote(note);
+	}
 }
 

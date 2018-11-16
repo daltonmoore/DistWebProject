@@ -1,0 +1,10 @@
+.nav-item{
+	display: inline; 
+	float: right; 
+	color: white; 
+	padding-top: 6px; 
+	padding-right: 6px;
+}
+.navbar-expand-lg div{
+	display: inline;
+}

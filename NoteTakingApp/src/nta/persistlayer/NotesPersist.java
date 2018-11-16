@@ -26,5 +26,13 @@ public class NotesPersist {
 		
 		return results;
 	}
-
+	
+	public static int updateNote(Notes note)
+	{
+		String query = "update notes set NoteTitle='" + note.getNoteTitle() 
+		+ "', NoteContent='" + note.getNoteContent() + "', Color='" + note.getColor() + "', CategoryID=" 
+		+ note.getCategoryID() + ", StatusID=" + note.getStatusID() + " where NoteID=" + note.getNoteID();
+		System.out.println(query);
+		return DatabaseAccess.update(query);
+	}
 }

@@ -5,6 +5,8 @@ package nta.boundary;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -81,6 +83,7 @@ public class NotesServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String newnote = request.getParameter("newnote");
+		String saveNote = request.getParameter("saveNote");
 		
 		if(newnote!=null) {
 			Gson gson = new Gson();
@@ -93,6 +96,14 @@ public class NotesServlet extends HttpServlet
 			System.out.println(json);
 			PrintWriter writer = response.getWriter();
 			writer.println(json);
+		}
+		else if(saveNote != null)
+		{
+			Gson gson = new Gson();
+			Notes note = gson.fromJson(saveNote, Notes.class);
+			int status = NotesLogic.updateNote(note);
+			System.out.println(status);
+			response.getWriter().println(status);
 		}
 	}
 

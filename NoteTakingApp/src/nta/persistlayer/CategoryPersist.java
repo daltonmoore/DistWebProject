@@ -41,10 +41,20 @@ public class CategoryPersist {
 		}
 		String query = "delete from category where CategoryID = "+categoryid;
 		int result = DatabaseAccess.delete(query);
+		int status = setCategoryToDefault();
+		if(status == 0)
+		{
+			System.out.println("Failed to set category id to default");
+		}
 		if(result>0)
 			return 1;
 		else
 			return -1;
+	}
+	
+	public static int setCategoryToDefault()
+	{
+		return DatabaseAccess.update("update notes set CategoryID = 10 where CategoryID is NULL;");
 	}
 }
 
