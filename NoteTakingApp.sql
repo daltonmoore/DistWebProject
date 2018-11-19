@@ -53,7 +53,7 @@ CREATE TABLE Category (
 CREATE TABLE Notes (
 	NoteID int NOT NULL AUTO_INCREMENT,
     NoteTitle varchar(255),
-    NoteContent varchar(1275),
+    NoteContent varchar(1500),
 	Color varchar(255) DEFAULT '#ffffff',
     AccountID int,
     CategoryID int,
