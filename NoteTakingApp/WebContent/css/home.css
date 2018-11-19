@@ -101,7 +101,7 @@ body{
     background-color: rgba(229,229,229,0.4); /* Black w/ opacity */
 }
 
-.modal-content{
+#modal-content{
 	background-color: #fefefe;
     position:relative;
     table-layout:fixed;

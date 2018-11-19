@@ -13,7 +13,7 @@ $(function(){
 //Counte modal-text characters to keep under 255
 function countCharacters(){
 	var count = $('#modal-text').text().length;
-
+	
 	if(count > 235 && count < 255){
 		$('#savenote').attr('disabled',false);
 		$('#charcounter').css('color','gold');
@@ -95,7 +95,11 @@ function noteClick(){
 	
 	$('#modal-text').html($(this).find('.noteContent').html());   //Add this note content to modal and set editable
 	$('#modal-text').attr('contenteditable',true);
+	
+	$('#modal-content').css('background-color',inputs.eq(2).val());
 
+	$('#changecolor').css('background-color',inputs.eq(2).val());
+	
 }
 
 //Send note changes to Servlet
@@ -136,6 +140,8 @@ function saveNote(){
 	//update hidden note fields
 	$('.note .noteTitle:hidden').html(modalTitle);
 	$('.note .noteContent:hidden').html(modalContent);
+	$('.note .color:hidden').val(modalColor);
+	$('.note:hidden').css('background-color',modalColor);
 
 	//close modal note
 	closeNote();
@@ -148,11 +154,6 @@ $.expr[":"].contains = $.expr.createPseudo(function(arg){
 		return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
 	};
 });
-
-
-function changeColor(){
-	
-}
 
 function noteOptions(){
 	var optionMenu = document.getElementById("options");
@@ -171,6 +172,7 @@ function noteOptions(){
 function closeNote(){
 	$('.note:hidden').show(); //Show hidden note
 	$('#modal').hide();		//Hide modal 
+	
 }
 
 //Show fields for creating a new note
@@ -211,6 +213,9 @@ function deleteNote(){
 	
 	$('.note:hidden').remove();
 	$('#modal').hide();		//Hide modal 
-	
-	
+}
+
+function update(jscolor) {
+    $('#color').val('#' + jscolor);
+    $('#modal-content').css('background-color','#'+jscolor);
 }
