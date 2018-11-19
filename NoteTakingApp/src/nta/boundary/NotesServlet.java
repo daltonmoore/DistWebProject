@@ -82,8 +82,15 @@ public class NotesServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		//newnote json object sent from ajax 
 		String newnote = request.getParameter("newnote");
 		String saveNote = request.getParameter("saveNote");
+		
+		//update note in db
+		String updatenote = request.getParameter("updatenote");
+		
+		//Note to be deleted
+		String deleteid = request.getParameter("deleteId");
 		
 		if(newnote!=null) {
 			Gson gson = new Gson();
@@ -104,6 +111,36 @@ public class NotesServlet extends HttpServlet
 			int status = NotesLogic.updateNote(note);
 			System.out.println(status);
 			response.getWriter().println(status);
+		}
+		
+		if(updatenote!=null) {
+			Gson gson = new Gson();
+			Notes note = gson.fromJson(updatenote, Notes.class);
+			System.out.println(updatenote);
+			System.out.println("Updating note.... \nNote title: " + note.getNoteTitle() + " | Note content: "+ note.getNoteContent());
+			
+			int numRowsAffected = NotesLogic.updateNote(note);
+			PrintWriter writer = response.getWriter();
+			response.setContentType("html/text");
+			
+			if(numRowsAffected > 0) {
+				writer.write("Successfully Updated "+numRowsAffected+" rows.");
+			}else {
+				writer.write("An error occured when updating.");
+			}
+		}
+		
+		if(deleteid!=null) {
+			int numRowsAffected = NotesLogic.deleteNote(deleteid);
+			
+			PrintWriter writer = response.getWriter();
+			response.setContentType("html/text");
+			
+			if(numRowsAffected > 0) {
+				writer.write("Successfully Deleted "+numRowsAffected+" rows.");
+			}else {
+				writer.write("An error occured when deleting.");
+			}
 		}
 	}
 

@@ -68,6 +68,15 @@ $(function(){
 	$('#closeNote').click(function(){//start of close note btn click
 		$('#modal').css('display', 'none');
 	});//end of close note btn click
+	$('.note').click(noteClick);
+	$("#savenote").click(saveNote);
+	$("#closenote").click(closeNote);
+	$('#createnote').click(createNote);
+	$('#newnotebtn').click(showNewNoteFields);
+	$('#cancelnote').click(cancelNewNote);
+	$('#modal-text').keyup(countCharacters);
+	$('#trash').click(deleteNote);
+});
 
 	$('#saveNote').click(function(){//start of save note btn click
 		var tempNote = {
@@ -143,14 +152,53 @@ $(function(){
 	$.each($('.note'), function(){
 		$(this).css('background-color', $(this).children('#color').val());
 	});
+//Send note changes to Servlet
+function saveNote(){
+	//Get modal data
+	var modalTitle = $('#modal-title').html();
+	var modalContent = $('#modal-text').html();
+	var accountid = $('#accountId').val();
+	var modalNoteId = $('#noteId').val();
+	var modalCategoryId = $('#categoryId').val();
+	var modalColor = $('#color').val();
+	var modalStatusId = $('#statusId').val();
 
+	
+	//Create JSON Obj
+	var updatenote = {
+			NoteID: modalNoteId,
+			NoteTitle: modalTitle,
+			NoteContent: modalContent,
+			Color: modalColor,   
+			AccountID: accountid,
+    		CategoryID: modalCategoryId,
+    		StatusID: modalStatusId       
+		}
+	
+	//Ajax call
+	$.ajax({
+        url: "NotesServlet",
+        type: "get",
+        data: {updatenote: JSON.stringify(updatenote)},
+        contentType: "application/json; charset=utf-8",
+        success: function(data){
+        	//add Successful save custom alert
+        	console.log(data);
+        }
+	});
+	
+	//update hidden note fields
+	$('.note .noteTitle:hidden').html(modalTitle);
+	$('.note .noteContent:hidden').html(modalContent);
+
+	//close modal note
+	closeNote();
+}
 	$('#newnotebtn').click(showNewNoteFields);
 
 	$('#cancelnote').click(cancelNewNote);
+var visible = false;
 
-});//end of doc load
-
-//this is for search bar
 $.expr[":"].contains = $.expr.createPseudo(function(arg){
 	return function(elem){
 		return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
@@ -162,8 +210,31 @@ function changeColor(){//jscolor picker calls this
 	$(modalContent).css('background-color', color);
 	$(note).children('#color').val(color)
 	$(note).css('background-color', color)
+
+function changeColor(){
+	
 }
 
+function noteOptions(){
+	var optionMenu = document.getElementById("options");
+	
+	if(!visible){
+		optionMenu.style.display = "block";
+		visible = true;
+	}
+	else if(visible){
+		visible = false;
+		optionMenu.style.display = "none";
+	}
+}
+
+//Close note without saving changes
+function closeNote(){
+	$('.note:hidden').show(); //Show hidden note
+	$('#modal').hide();		//Hide modal 
+}
+
+//Show fields for creating a new note
 function showNewNoteFields(){
 	$('#newnotebtn').css('display', 'none');
 	$('#newnotefields').css('display', 'block');
@@ -171,14 +242,36 @@ function showNewNoteFields(){
 	$('#cancelnote').css('display', 'block');
 }
 
+//Hide new note view
 function cancelNewNote(){
+	$('#newnotetitle').val("");
+	$('#newnotebody').html("");
 	$('#newnotebtn').css('display', 'block');
 	$('#newnotefields').css('display', 'none');
 	$('#createnote').css('display', 'none');
 	$('#cancelnote').css('display', 'none');
 }
 
+//Search bar logic
 function searchBar(){
 	$('.note:not(:contains('+ $('.searchbar').val() +'))').css('display', 'none');
 	$('.note:contains('+ $('.searchbar').val() +')').css('display', 'block');
+}
+//Delete selected note
+function deleteNote(){
+	var noteId = $('#noteId').val();
+
+	$.ajax({
+		url: "NotesServlet",
+		method: "get",
+		data: { deleteId: noteId},
+		success: function(data){
+			console.log(data);
+		}
+	});
+	
+	$('.note:hidden').remove();
+	$('#modal').hide();		//Hide modal 
+	
+	
 }

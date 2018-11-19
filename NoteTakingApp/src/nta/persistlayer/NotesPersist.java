@@ -35,4 +35,24 @@ public class NotesPersist {
 		System.out.println(query);
 		return DatabaseAccess.update(query);
 	}
+
+	public static int updateNote(Notes note) {
+		int numRowsAffected = 0;
+		String query = "Update notes set NoteTitle='"+note.getNoteTitle()+"', NoteContent='"+note.getNoteContent()+"', Color='"
+				+note.getColor()+"', CategoryID="+note.getCategoryID()+", StatusID="+note.getStatusID()+" WHERE NoteID="+note.getNoteID();
+		
+		numRowsAffected = DatabaseAccess.update(query);
+		
+		return numRowsAffected;
+	}
+
+	public static int deleteNote(String deleteid) {
+		int numRowsAffected = 0;
+		String query = "Delete from notes where NoteID="+deleteid;
+		
+		numRowsAffected = DatabaseAccess.delete(query);
+		
+		return numRowsAffected;
+	}
+
 }

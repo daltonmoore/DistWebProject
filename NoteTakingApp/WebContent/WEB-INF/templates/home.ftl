@@ -18,11 +18,9 @@
 		<div class="nav-item"><span>${user}</span></div>
 	</header>
 	
-	<nav class="nav flex-column">
+	<nav id="navigate" class="nav flex-column" style="position: fixed;">
 		<form action="Navigate" method="get">
 				<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
-				<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Edit Headers">
-				<input class="nav-link active" type="submit" name="GoToArchivePage" value="Archive">
 				<input type="hidden" name="username" value=${user}>
 		</form>
 	</nav>
@@ -31,41 +29,38 @@
 		<input type="hidden" id="accountId" value="${userid}"/>
 		<div>
 			<button id="newnotebtn">Create New Note</button>
-			<div id="newnotefields">
+			<div id="newnotefields" style="display:none">
 				<input id="newnotetitle" type="text" placeholder="Note Title">
-				<textarea id="newnotebody" type="text" placeholder="Note Body"></textarea>
+				<div id="newnotebody" type="text" contenteditable="true"></div>
 				<select id="newnotecategory">
 					<#list categories as categories>	
 						<option value="${categories.categoryID}">${categories.categoryName}</option>
 					</#list>
 				</select>
-				<button id="createnote">Create</button>
-				<button id="cancelnote">Cancel</button>
 			</div>
+			<button id="createnote" style="display:none">Create</button>
+			<button id="cancelnote" style="display:none">Cancel</button>
 		</div>
 		
-			<#list categories as categories>
-					
+		<#list categories as categories>	
 			<div class="header">${categories.categoryName}</div>
 			<div class="grid ${categories.categoryID}">	
 				<#list usernotes as notes>	
 					<#if notes.categoryID == categories.categoryID>	
-						<div class="note" class="note">
+						<div class="note" style="background-color: ${notes.color}">
 							<div class="noteTitle">${notes.noteTitle}</div>
 							<div class="noteContent">${notes.noteContent}</div>
-						<!-- <input type="hidden" id="accountId" value="${userid}"/> -->
-							<input type="hidden" id="noteId" value="${notes.noteID}"/>
-							<input type="hidden" id="categoryId" value="${notes.categoryID}"/>
-							<input type="hidden" id="color" value="${notes.color}"/>
-							<input type="hidden" id="statusId" value="${notes.statusID}"/>
-							<button class="archivebtn">Archive</button>
+							<input type="hidden" class="noteId" value="${notes.noteID}"/>
+							<input type="hidden" class="categoryId" value="${notes.categoryID}"/>
+							<input type="hidden" class="color" value="${notes.color}"/>
+							<input type="hidden" class="statusId" value="${notes.statusID}"/>
 						</div>
 					</#if>
 				</#list>
 			</div>
-			</#list>
-
+		</#list>	
 	</div>
+	
 	<div id="modal">
 		<div id="modal-content" class="modal-content">
 			<div class="noteTitle" id="modal-title">Modal Title</div>
