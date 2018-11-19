@@ -1,10 +1,12 @@
--- Current implementation of Datamodel. May need a few more tweaks once we start applying it.
+-- DROP DATABASE NoteTakingApp;
 
 -- CREATE DATABASE NoteTakingApp;
 
 --
 -- Table structure for Users table
 --
+
+-- DROP TABLE Users;
 
 CREATE TABLE Users (
 	AccountID int NOT NULL UNIQUE AUTO_INCREMENT,
@@ -20,8 +22,10 @@ CREATE TABLE Users (
 -- Table structure for Status table
 --
 
+-- DROP TABLE Status;
+
 CREATE TABLE Status(
-	StatusID int(1) NOT NULL UNIQUE DEFAULT 1,
+	StatusID int NOT NULL UNIQUE Auto_Increment,
     Description varchar(255) UNIQUE NOT NULL DEFAULT 'Note Page',
     PRIMARY KEY(StatusID)
 );
@@ -48,11 +52,12 @@ CREATE TABLE Category (
 
 CREATE TABLE Notes (
 	NoteID int NOT NULL AUTO_INCREMENT,
-    NoteContent varchar(255),
+    NoteTitle varchar(255),
+    NoteContent varchar(1275),
 	Color varchar(255) DEFAULT '#ffffff',
     AccountID int,
     CategoryID int,
-    StatusID int,
+    StatusID int DEFAULT 1,
     PRIMARY KEY (NoteID),
     FOREIGN KEY (AccountID) 
 		REFERENCES Users(AccountID) 
