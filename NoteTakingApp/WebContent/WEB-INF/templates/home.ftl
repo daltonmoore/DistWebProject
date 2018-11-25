@@ -45,20 +45,21 @@
 		</div>
 		
 		<#list categories as categories>	
-			<div class="header">${categories.categoryName}</div>
-			<div class="grid ${categories.categoryID}">	
-				<#list usernotes as notes>	
-					<#if notes.categoryID == categories.categoryID>	
-						<div class="note" style="background-color: ${notes.color}">
-							<div class="noteTitle">${notes.noteTitle}</div>
-							<div class="noteContent">${notes.noteContent}</div>
-							<input type="hidden" class="noteId" value="${notes.noteID}"/>
-							<input type="hidden" class="categoryId" value="${notes.categoryID}"/>
-							<input type="hidden" class="color" value="${notes.color}"/>
-							<input type="hidden" class="statusId" value="${notes.statusID}"/>
-						</div>
-					</#if>
-				</#list>
+			<div class="header" id="${categories.categoryName}">${categories.categoryName}
+				<div class="grid ${categories.categoryID}">	
+					<#list usernotes as notes>	
+						<#if notes.categoryID == categories.categoryID>	
+							<div class="note" style="background-color: ${notes.color}">
+								<div class="noteTitle">${notes.noteTitle}</div>
+								<div class="noteContent">${notes.noteContent}</div>
+								<input type="hidden" class="noteId" value="${notes.noteID}"/>
+								<input type="hidden" class="categoryId" value="${notes.categoryID}"/>
+								<input type="hidden" class="color" value="${notes.color}"/>
+								<input type="hidden" class="statusId" value="${notes.statusID}"/>
+							</div>
+						</#if>
+					</#list>
+				</div>
 			</div>
 		</#list>	
 	</div>

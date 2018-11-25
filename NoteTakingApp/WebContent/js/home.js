@@ -1,3 +1,4 @@
+//on document load
 $(function(){
 	$('.searchbar').keyup(searchBar);
 	$('.note').click(noteClick);
@@ -73,12 +74,6 @@ function createNote(){
 	cancelNewNote(); //hide new note view
 }
 
-
-function sideBarClick(){
-	
-}
-
-
 //Hide clicked note and populate modal values with relevant info
 function noteClick(){
 	var inputs = $(this).find('input');			//get hidden inputs for this note
@@ -147,32 +142,16 @@ function saveNote(){
 	closeNote();
 }
 
-var visible = false;
-
 $.expr[":"].contains = $.expr.createPseudo(function(arg){
 	return function(elem){
 		return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
 	};
 });
 
-function noteOptions(){
-	var optionMenu = document.getElementById("options");
-	
-	if(!visible){
-		optionMenu.style.display = "block";
-		visible = true;
-	}
-	else if(visible){
-		visible = false;
-		optionMenu.style.display = "none";
-	}
-}
-
 //Close note without saving changes
 function closeNote(){
 	$('.note:hidden').show(); //Show hidden note
 	$('#modal').hide();		//Hide modal 
-	
 }
 
 //Show fields for creating a new note
@@ -210,12 +189,21 @@ function deleteNote(){
 			console.log(data);
 		}
 	});
-	
+	var header = $('.note:hidden').closest('.header');
 	$('.note:hidden').remove();
-	$('#modal').hide();		//Hide modal 
+	$('#modal').hide();	//Hide modal
+	
+	//check if header has zero notes
+	checkIfHeaderHasNotes(header);
+}
+
+function checkIfHeaderHasNotes(header){
+	if($(header).children().children().length == 0){
+		header.hide();
+	}
 }
 
 function update(jscolor) {
-    $('#color').val('#' + jscolor);
+    //$('#color').val('#' + jscolor);
     $('#modal-content').css('background-color','#'+jscolor);
 }
