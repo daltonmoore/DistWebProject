@@ -20,11 +20,15 @@
 			<form action="Navigate" method="post" accept-charset=utf-8>
 					<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
 					<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Create Header">
-					<input type="hidden" name="username" value=${username}>
+					<input id="username" type="hidden" name="username" value=${username}>
 			</form>
 		</nav>
+		<div id="btnClosePrefab" style="display:none;">
+			<button type="button" class="close" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 		<div class="container" style="margin-top: 40px">
-			<!-- will have to freemarker this later -->
 			<table class="table" id="headers">
 				<tr>
 					<th>
@@ -33,18 +37,6 @@
 					<th>
 						Delete
 					</th>
-				</tr>
-				<tr>
-					<td>
-						Uncategorized
-					</td>
-					<td>
-						<div id="btnClosePrefab" style="display:none;">
-							<button type="button" class="close" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-					</td>
 				</tr>
 				<#list sequence as item>
 					<tr>
@@ -61,10 +53,6 @@
 			</table>
 			<input type="text" id="headerName" placeholder="header name">
 			<button id="createHeader">Create</button>
-			<form id="submitHeaderForm" action="HeaderPage" onsubmit="return checkHeadersAdded();" method="post" accept-charset=utf-8>
-				<button name="submitHeaders">Submit New Headers</button>
-				<input type="hidden" id="username" name="username" value=${username}>
-			</form>
 		</div>
 	</body>
 </html>

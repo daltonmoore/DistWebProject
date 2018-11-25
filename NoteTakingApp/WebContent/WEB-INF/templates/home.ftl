@@ -22,7 +22,7 @@
 		<form action="Navigate" method="get">
 				<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
 				<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Create Header">
-				<input type="hidden" name="username" value=${user}>
+				<input id="username" type="hidden" name="username" value=${user}>
 		</form>
 	</nav>
 

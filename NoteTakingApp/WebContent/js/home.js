@@ -9,6 +9,11 @@ $(function(){
 	$('#cancelnote').click(cancelNewNote);
 	$('#modal-text').keyup(countCharacters);
 	$('#trash').click(deleteNote);
+
+	$('.header').each( function(i, header){
+		if($(header).children().children().length == 0)
+			$(header).hide();
+	});
 });
 
 //Counte modal-text characters to keep under 255
@@ -70,7 +75,9 @@ function createNote(){
         	$('.note').click(noteClick);
         }
 	});
-	
+	//ensure that header is showing if it has notes under it
+	var c = $('#newnotecategory :selected').text();
+	$("[id='"+ c +"']").show();
 	cancelNewNote(); //hide new note view
 }
 
@@ -198,8 +205,19 @@ function deleteNote(){
 }
 
 function checkIfHeaderHasNotes(header){
+	//the header doesn't have any children
 	if($(header).children().children().length == 0){
 		header.hide();
+		//i don't know why i did this, i'll just ignore it for now
+		// var catid = header.children().attr('class').split(' ')[1] //get the category id which is stored in the grid's second class
+		// $.ajax({
+		// 	url: "NotesServlet",
+		// 	method: "get",
+		// 	data: { categoryIDToDelete: catid, categoryNameToDelete: header.attr('id')},
+		// 	success: function(data){
+		// 		console.log("Successfully Delete Empty Categories");
+		// 	}
+		// });
 	}
 }
 

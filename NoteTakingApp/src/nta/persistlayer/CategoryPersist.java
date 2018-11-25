@@ -19,7 +19,7 @@ public class CategoryPersist {
 	{
 		String query = "insert into category values(0,"+userid+",'"+category+"')";
 		int result = DatabaseAccess.create(query);
-		
+		System.out.println(query);
 		return result;
 	}
 

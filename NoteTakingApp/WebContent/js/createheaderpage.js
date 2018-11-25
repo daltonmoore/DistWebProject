@@ -61,13 +61,3 @@ function removeHeader()
     });
     $('tr:last').remove();
 }
-
-function checkHeadersAdded()
-{
-    if($('#headersAddedCount').val() == 0)
-    {
-        alert("no new headers added");
-        return false;
-    }
-    return true;
-}

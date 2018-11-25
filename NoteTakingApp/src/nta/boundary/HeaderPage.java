@@ -82,7 +82,8 @@ public class HeaderPage extends HttpServlet
 	{
 		//passing around username
 		String username = request.getParameter("username");
-		usernameStorage = username;
+		if(username != null)
+			usernameStorage = username;
 
 		//for creating headers
 		String headerToInsert = request.getParameter("headerToInsert");

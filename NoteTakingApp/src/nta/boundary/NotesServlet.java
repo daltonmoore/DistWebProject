@@ -20,7 +20,9 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import freemarker.template.TemplateExceptionHandler;
+import nta.logiclayer.CategoryLogic;
 import nta.logiclayer.NotesLogic;
+import nta.logiclayer.UserLogic;
 import nta.objectlayer.Notes;
 import nta.persistlayer.TemplateProcessor;
 
@@ -89,6 +91,10 @@ public class NotesServlet extends HttpServlet
 		//Note to be deleted
 		String deleteid = request.getParameter("deleteId");
 		
+		//Header (aka category) to delete
+		String categoryidToDelete = request.getParameter("categoryIDToDelete");
+		String categoryNameToDelete = request.getParameter("categoryNameToDelete");
+		
 		if(newnote!=null) {
 			Gson gson = new Gson();
 			Notes note = gson.fromJson(newnote, Notes.class);
@@ -130,6 +136,15 @@ public class NotesServlet extends HttpServlet
 			}else {
 				writer.write("An error occured when deleting.");
 			}
+		}
+		
+		if(categoryidToDelete != null)
+		{
+			int userID = UserLogic.getUserIdByUsername(usernameStorage);
+			
+			int status = CategoryLogic.deleteCategoryForAccountId(userID, categoryNameToDelete);
+			response.getWriter().write(status);
+			System.out.println(status);
 		}
 	}
 
