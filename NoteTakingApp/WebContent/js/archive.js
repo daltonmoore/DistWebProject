@@ -5,7 +5,7 @@ $(function(){
 	$("#savenote").click(saveNote);
 	$("#closenote").click(closeNote);
 	$('#trash').click(deleteNote);
-	$('#archive').click(archiveNote);
+	$('#archive').click(unArchiveNote);
 
 	$('.header').each( function(i, header){
 		if($(header).children().children().length == 0)
@@ -44,7 +44,7 @@ function saveNote(){
 	var accountid = $('#accountId').val();
 	var modalNoteId = $('#noteId').val();
 	var modalCategoryId = $('#categoryId').val();
-	var modalColor = $('#color').val();
+	var modalColor = $('#changecolor').val();
 	var modalStatusId = $('#statusId').val();
 
 	
@@ -72,10 +72,12 @@ function saveNote(){
 	});
 	
 	//update hidden note fields
-	$('.note .noteTitle:hidden').html(modalTitle);
-	$('.note .noteContent:hidden').html(modalContent);
-	$('.note .color:hidden').val(modalColor);
-	$('.note:hidden').css('background-color',modalColor);
+	var note = $('.note:hidden');
+	note.find('.noteTitle').html(modalTitle);
+	note.find('.noteContent').html(modalContent);
+	note.find('.color').val(modalColor);
+	note.css('background-color',modalColor);
+	console.log(modalColor);
 
 	//close modal note
 	closeNote();

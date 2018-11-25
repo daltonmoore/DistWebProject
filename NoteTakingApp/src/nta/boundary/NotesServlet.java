@@ -157,7 +157,11 @@ public class NotesServlet extends HttpServlet
 			Gson gson = new Gson();
 			Notes note = gson.fromJson(archivedNote, Notes.class);
 			int userID = UserLogic.getUserIdByUsername(usernameStorage);
-			note.setStatusID(2);
+			System.out.println(note.getStatusID());
+			if(note.getStatusID() == 1)
+				note.setStatusID(2);
+			else if(note.getStatusID() == 2)
+				note.setStatusID(1);
 			int status = NotesLogic.updateNote(note);
 			System.out.println(status);
 			response.getWriter().write(status);

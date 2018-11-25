@@ -1,7 +1,13 @@
 //on document load
 $(function(){
+	$('.quickTrash').hide();
+	$('.quickArchive').hide();
 	$('.searchbar').keyup(searchBar);
 	$('.note').click(noteClick);
+	$('.note').hover(noteHover);
+	$('.note').mouseleave(noteLeave);
+	$('.quickTrash').click(quickDeleteNote);
+	$('.quickArchive').click(quickArchiveNote);
 	$("#savenote").click(saveNote);
 	$("#closenote").click(closeNote);
 	$('#createnote').click(createNote);
@@ -16,6 +22,67 @@ $(function(){
 			$(header).hide();
 	});
 });
+
+function noteHover(){
+	$(this).children('.quickTrash').show();
+	$(this).children('.quickArchive').show();
+}
+
+function noteLeave(){
+	$(this).children('.quickTrash').hide();
+	$(this).children('.quickArchive').hide();
+}
+
+function quickArchiveNote(){
+	$('#modal').hide();	//Hide modal
+	var archivednote = {
+		NoteID: $(this).parent().children('.noteId').val(),
+		NoteTitle: $(this).parent().children('.noteTitle').val(),
+		NoteContent: $(this).parent().children('.noteContent').val(),
+		Color: $(this).parent().children('.color').val(),   
+		AccountID: $(this).parent().children('#accountId').val(),
+		CategoryID: $(this).parent().children('.categoryId').val(),
+		StatusID: $(this).parent().children('.statusId').val()       
+	}
+	console.log($(this).parent().children('.statusId').val());
+
+	var note = $(this).parent();
+	$.ajax({
+		url: "NotesServlet",
+		method: "get",
+		data: { archivedNote: JSON.stringify(archivednote)},
+		success: function(data){
+			console.log($(this));
+			var header = $(note).closest('.header');
+			$(note).remove();
+			$('#archivedNoteAlert').show();
+			checkIfHeaderHasNotes(header);
+			//setTimeout(function(){$('#archivedNoteAlert').hide();}, 1000);
+		},
+		error: function(){
+			console.log("failed");
+		}
+	});
+}
+
+function quickDeleteNote(){
+	$('#modal').hide();	//Hide modal
+	var noteId = $(this).parent().children('.noteId').val()
+
+	$.ajax({
+		url: "NotesServlet",
+		method: "get",
+		data: { deleteId: noteId},
+		success: function(data){
+			console.log(data);
+		}
+	});
+	var header = $(this).parent().closest('.header');
+	$(this).parent().remove();
+	
+	//check if header has zero notes
+	checkIfHeaderHasNotes(header);
+}
 
 //Counte modal-text characters to keep under 255
 function countCharacters(){
@@ -64,16 +131,22 @@ function createNote(){
         dataType: "JSON",
         success: function(obj){
         	$('div.grid.'+category).append(
-        			'<div class=\"note\">\n'
+					'<div class=\"note\">\n'
     				+'<div class=\"noteTitle\">'+ obj.NoteTitle +'</div>\n'
     				+'<div class=\"noteContent\">'+ obj.NoteContent +'</div>\n'
     				+'<input type="hidden" class="noteId" value="'+ obj.NoteID +'"/>\n'
     				+'<input type="hidden" class="categoryId" value="'+ obj.CategoryID +'"/>\n'
     				+'<input type="hidden" class="color" value="'+ obj.Color +'"/>\n'
-    				+'<input type="hidden" class="statusid" value="'+ obj.StatusID+'"/>\n'
+					+'<input type="hidden" class="statusId" value="'+ obj.StatusID+'"/>\n'
+					+'<input type=\"button\" class=\"quickArchive\" value=\"Archive\">'
+					+'<input type=\"button\" style=\"display:none;\"class=\"quickTrash\" value=\"Trash\">'
 						+'</div>');
         	//Update noteClick
-        	$('.note').click(noteClick);
+			$('.note').click(noteClick);
+			$('.note').hover(noteHover);
+			$('.note').mouseleave(noteLeave);
+			$('.quickTrash').click(quickDeleteNote);
+			$('.quickArchive').click(quickArchiveNote);
         }
 	});
 	//ensure that header is showing if it has notes under it
@@ -83,7 +156,12 @@ function createNote(){
 }
 
 //Hide clicked note and populate modal values with relevant info
-function noteClick(){
+function noteClick(e){
+	if(!($(e.target).hasClass('.note')))
+	{
+		console.log("clicked other btn");
+		return;
+	}
 	$(this).hide();   //hide this note
 	var inputs = $(this).find('input');			//get hidden inputs for this note
 	$("#noteId").val(inputs.eq(0).val());         //set modal hidden ids 

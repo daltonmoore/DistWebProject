@@ -163,6 +163,18 @@ body{
 	transform: translate(0px, 10px)
 }
 
+.quickTrash {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.quickArchive{
+	position: absolute;
+	bottom: 0;
+	right: 60;
+}
+
 #changecolor{
 	opacity: 0.5;
 	padding: 5px;
@@ -179,6 +191,7 @@ body{
 }
 
 .note{
+	position: relative;
 	background-color: #ffffff;
 	padding: 10px;
 	box-sizing: border-box;
