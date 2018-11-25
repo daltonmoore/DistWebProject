@@ -7,8 +7,16 @@ import nta.objectlayer.Notes;
 
 public class NotesPersist {
 
+	public static ResultSet getArchivedNotesForAccountId(int userid) {
+		String query = "SELECT * from notes where accountid="+userid+" and statusid="+2;
+		
+		ResultSet results = DatabaseAccess.retrieve(query);
+		
+		return results;
+	}
+	
 	public static ResultSet getNotesForAccountId(int userid) {
-		String query = "SELECT * from notes where accountid="+userid+"";
+		String query = "SELECT * from notes where accountid="+userid+" and statusid="+1;
 		
 		ResultSet results = DatabaseAccess.retrieve(query);
 		

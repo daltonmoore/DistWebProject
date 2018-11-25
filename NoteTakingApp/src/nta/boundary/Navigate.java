@@ -84,6 +84,7 @@ public class Navigate extends HttpServlet
 		usernameStorage = request.getParameter("username");
 		String goToCreateHeaderPage = request.getParameter("GoToCreateHeaderPage");
 		String goToNotePage = request.getParameter("GoToNotePage");
+		String goToArchivePage = request.getParameter("GoToArchivePage");
 		String submitHeaders = request.getParameter("submitHeaders");
 		
 		if(goToCreateHeaderPage != null || submitHeaders != null)
@@ -93,6 +94,10 @@ public class Navigate extends HttpServlet
 		else if(goToNotePage != null)
 		{
 			loadNotePage(request, response); 
+		}
+		else if(goToArchivePage != null)
+		{
+			loadArchivePage(request, response);
 		}
 	}
 	
@@ -120,6 +125,18 @@ public class Navigate extends HttpServlet
 		root.put("userid", userid);
 		root.put("usernotes", usernotes);
 		root.put("categories", categories);
+		processor.processTemplate(templatename,root,request,response);
+	}
+	
+	void loadArchivePage(HttpServletRequest request, HttpServletResponse response)
+	{
+		String templatename = "archive.ftl";
+		int userid = UserLogic.getUserIdByUsername(usernameStorage);
+		List<Notes> usernotes = NotesLogic.getArchivedNotesForAccountId(userid);
+		
+		root.put("user", usernameStorage);
+		root.put("userid", userid);
+		root.put("usernotes", usernotes);
 		processor.processTemplate(templatename,root,request,response);
 	}
 

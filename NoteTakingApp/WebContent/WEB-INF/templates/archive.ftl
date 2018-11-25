@@ -29,40 +29,18 @@
 
 	<div class="main">
 		<input type="hidden" id="accountId" value="${userid}"/>
-		
-		<div>
-			<button id="newnotebtn">Create New Note</button>
-			<div id="newnotefields" style="display:none">
-				<input id="newnotetitle" type="text" placeholder="Note Title">
-				<div id="newnotebody" type="text" contenteditable="true"></div>
-				<select id="newnotecategory">
-					<#list categories as categories>	
-						<option value="${categories.categoryID}">${categories.categoryName}</option>
-					</#list>
-				</select>
-			</div>
-			<button id="createnote" style="display:none">Create</button>
-			<button id="cancelnote" style="display:none">Cancel</button>
-		</div>
-		
-		<#list categories as categories>	
-			<div class="header" id="${categories.categoryName}">${categories.categoryName}
-				<div class="grid ${categories.categoryID}">	
-					<#list usernotes as notes>	
-						<#if notes.categoryID == categories.categoryID>	
-							<div class="note" style="background-color: ${notes.color}">
-								<div class="noteTitle">${notes.noteTitle}</div>
-								<div class="noteContent">${notes.noteContent}</div>
-								<input type="hidden" class="noteId" value="${notes.noteID}"/>
-								<input type="hidden" class="categoryId" value="${notes.categoryID}"/>
-								<input type="hidden" class="color" value="${notes.color}"/>
-								<input type="hidden" class="statusId" value="${notes.statusID}"/>
-							</div>
-						</#if>
-					</#list>
+		<div class="grid">	
+			<#list usernotes as notes>	
+				<div class="note" style="background-color: ${notes.color}">
+					<div class="noteTitle">${notes.noteTitle}</div>
+					<div class="noteContent">${notes.noteContent}</div>
+					<input type="hidden" class="noteId" value="${notes.noteID}"/>
+					<input type="hidden" class="categoryId" value="${notes.categoryID}"/>
+					<input type="hidden" class="color" value="${notes.color}"/>
+					<input type="hidden" class="statusId" value="${notes.statusID}"/>
 				</div>
-			</div>
-		</#list>	
+			</#list>
+		</div>
 	</div>
 	
 	<div id="modal">
