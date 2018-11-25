@@ -41,7 +41,7 @@ public class NotesPersist {
 				+note.getColor()+"', CategoryID="+note.getCategoryID()+", StatusID="+note.getStatusID()+" WHERE NoteID="+note.getNoteID();
 		
 		numRowsAffected = DatabaseAccess.update(query);
-		
+		System.out.println(numRowsAffected);
 		return numRowsAffected;
 	}
 

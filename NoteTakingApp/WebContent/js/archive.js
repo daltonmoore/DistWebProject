@@ -4,10 +4,6 @@ $(function(){
 	$('.note').click(noteClick);
 	$("#savenote").click(saveNote);
 	$("#closenote").click(closeNote);
-	$('#createnote').click(createNote);
-	$('#newnotebtn').click(showNewNoteFields);
-	$('#cancelnote').click(cancelNewNote);
-	$('#modal-text').keyup(countCharacters);
 	$('#trash').click(deleteNote);
 	$('#archive').click(archiveNote);
 
@@ -17,80 +13,15 @@ $(function(){
 	});
 });
 
-//Counte modal-text characters to keep under 255
-function countCharacters(){
-	var count = $('#modal-text').text().length;
-	
-	if(count > 235 && count < 255){
-		$('#savenote').attr('disabled',false);
-		$('#charcounter').css('color','gold');
-		$('#charcounter').text(255-count);
-	}else if(count == 255){
-		$('#savenote').attr('disabled',false);
-		$('#charcounter').css('color','red');
-		$('#charcounter').text(255-count);
-	}else if(count > 255){
-		$('#savenote').attr('disabled',true);
-		$('#charcounter').css('color','red');
-		$('#charcounter').text(255-count);
-	}else {
-		$('#charcounter').text("");
-	}
-}
-
-//Create new note function
-function createNote(){
-	
-	var accountid = $('#accountId').val();
-	var category = $('#newnotecategory').val();
-	var title = $('#newnotetitle').val();
-	var body = $('#newnotebody').html();
-	
-	//Json object
-	var newnote = {
-		NoteTitle: title,
-		NoteContent: body,
-		Color: '#ffffff',   //New note set to white by default
-		AccountID: accountid,
-		CategoryID: category,
-		StatusID: '1'       //New note automatically added to notes page, not archive or trash
-	}
-	
-	$.ajax({
-        url: "NotesServlet",
-        type: "get",
-        data: {newnote: JSON.stringify(newnote)},
-        contentType: "application/json; charset=utf-8",
-        dataType: "JSON",
-        success: function(obj){
-        	$('div.grid.'+category).append(
-        			'<div class=\"note\">\n'
-    				+'<div class=\"noteTitle\">'+ obj.NoteTitle +'</div>\n'
-    				+'<div class=\"noteContent\">'+ obj.NoteContent +'</div>\n'
-    				+'<input type="hidden" class="noteId" value="'+ obj.NoteID +'"/>\n'
-    				+'<input type="hidden" class="categoryId" value="'+ obj.CategoryID +'"/>\n'
-    				+'<input type="hidden" class="color" value="'+ obj.Color +'"/>\n'
-    				+'<input type="hidden" class="statusid" value="'+ obj.StatusID+'"/>\n'
-						+'</div>');
-        	//Update noteClick
-        	$('.note').click(noteClick);
-        }
-	});
-	//ensure that header is showing if it has notes under it
-	var c = $('#newnotecategory :selected').text();
-	$("[id='"+ c +"']").show();
-	cancelNewNote(); //hide new note view
-}
-
 //Hide clicked note and populate modal values with relevant info
 function noteClick(){
-	$(this).hide();   //hide this note
 	var inputs = $(this).find('input');			//get hidden inputs for this note
 	$("#noteId").val(inputs.eq(0).val());         //set modal hidden ids 
 	$("#categoryId").val(inputs.eq(1).val());
-	$('#color').val(inputs.eq(2).val());
+	$("#color").val(inputs.eq(2).val());
 	$("#statusId").val(inputs.eq(3).val());
-
+	
+	$(this).hide();   //hide this note
 	$('#modal').show();    //show modal note
 	
 	$('#modal-title').html($(this).find('.noteTitle').html());   //Add this note content to modal and set editable
@@ -113,7 +44,7 @@ function saveNote(){
 	var accountid = $('#accountId').val();
 	var modalNoteId = $('#noteId').val();
 	var modalCategoryId = $('#categoryId').val();
-	var modalColor = $('#changecolor').val()
+	var modalColor = $('#color').val();
 	var modalStatusId = $('#statusId').val();
 
 	
@@ -141,12 +72,10 @@ function saveNote(){
 	});
 	
 	//update hidden note fields
-	var note = $('.note:hidden');
-	note.find('.noteTitle').html(modalTitle);
-	note.find('.noteContent').html(modalContent);
-	note.find('.color').val(modalColor);
-	note.css('background-color',modalColor);
-	console.log(modalColor);
+	$('.note .noteTitle:hidden').html(modalTitle);
+	$('.note .noteContent:hidden').html(modalContent);
+	$('.note .color:hidden').val(modalColor);
+	$('.note:hidden').css('background-color',modalColor);
 
 	//close modal note
 	closeNote();
@@ -162,24 +91,6 @@ $.expr[":"].contains = $.expr.createPseudo(function(arg){
 function closeNote(){
 	$('.note:hidden').show(); //Show hidden note
 	$('#modal').hide();		//Hide modal 
-}
-
-//Show fields for creating a new note
-function showNewNoteFields(){
-	$('#newnotebtn').css('display', 'none');
-	$('#newnotefields').css('display', 'block');
-	$('#createnote').css('display', 'block');
-	$('#cancelnote').css('display', 'block');
-}
-
-//Hide new note view
-function cancelNewNote(){
-	$('#newnotetitle').val("");
-	$('#newnotebody').html("");
-	$('#newnotebtn').css('display', 'block');
-	$('#newnotefields').css('display', 'none');
-	$('#createnote').css('display', 'none');
-	$('#cancelnote').css('display', 'none');
 }
 
 //Search bar logic
@@ -202,12 +113,9 @@ function deleteNote(){
 	var header = $('.note:hidden').closest('.header');
 	$('.note:hidden').remove();
 	$('#modal').hide();	//Hide modal
-	
-	//check if header has zero notes
-	checkIfHeaderHasNotes(header);
 }
 
-function archiveNote(){
+function unArchiveNote(){
 	var modalTitle = $('#modal-title').html();
 	var modalContent = $('#modal-text').html();
 	var accountid = $('#accountId').val();
@@ -242,25 +150,6 @@ function archiveNote(){
 			console.log("failed");
 		}
 	});
-}
-
-function checkIfHeaderHasNotes(header){
-	//the header doesn't have any children
-	if($(header).children().children().length == 0){
-		header.hide();
-
-		//i don't know why i did this code here, i'll just ignore it for now
-
-		// var catid = header.children().attr('class').split(' ')[1] //get the category id which is stored in the grid's second class
-		// $.ajax({
-		// 	url: "NotesServlet",
-		// 	method: "get",
-		// 	data: { categoryIDToDelete: catid, categoryNameToDelete: header.attr('id')},
-		// 	success: function(data){
-		// 		console.log("Successfully Delete Empty Categories");
-		// 	}
-		// });
-	}
 }
 
 function update(jscolor) {

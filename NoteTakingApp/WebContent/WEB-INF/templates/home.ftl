@@ -64,6 +64,13 @@
 			</div>
 		</#list>	
 	</div>
+
+	<div id="archivedNoteAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+		Archived Note Successfully
+		<button type="button" class="close" data-dismiss="alert">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 	
 	<div id="modal">
 		<div class="jscolor {onFineChange:'update(this)'}" id="modal-content">
@@ -77,19 +84,7 @@
 			<div id="buttons">
 				<input id="trash" type="image" src="images/trash-4x.png">
 				<input class="jscolor {onFineChange:'update(this)'}" id="changecolor" type="image" src="images/eyedropper-4x.png">
-				<input id="archive"
-					type="image" 
-					src="images/box-4x.png">
-				<div class="dropdown">
-					<button id="optionbutton" 
-						class="optionbutton" 
-						onclick="noteOptions()">
-						Options
-					</button>
-					<div id="options" class="options">
-						<a>Delete note</a>
-					</div>
-				</div>
+				<input id="archive" type="image" src="images/box-4x.png">
 				<button id="savenote">Save</button>
 				<button id="closenote">Close</button>
 			</div>

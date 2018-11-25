@@ -95,6 +95,10 @@ public class NotesServlet extends HttpServlet
 		String categoryidToDelete = request.getParameter("categoryIDToDelete");
 		String categoryNameToDelete = request.getParameter("categoryNameToDelete");
 		
+		//archived note
+		String archivedNote = request.getParameter("archivedNote");
+		System.out.println(archivedNote);
+		
 		if(newnote!=null) {
 			Gson gson = new Gson();
 			Notes note = gson.fromJson(newnote, Notes.class);
@@ -145,6 +149,18 @@ public class NotesServlet extends HttpServlet
 			int status = CategoryLogic.deleteCategoryForAccountId(userID, categoryNameToDelete);
 			response.getWriter().write(status);
 			System.out.println(status);
+		}
+		
+		if(archivedNote != null)
+		{
+			System.out.println("Archiving");
+			Gson gson = new Gson();
+			Notes note = gson.fromJson(archivedNote, Notes.class);
+			int userID = UserLogic.getUserIdByUsername(usernameStorage);
+			note.setStatusID(2);
+			int status = NotesLogic.updateNote(note);
+			System.out.println(status);
+			response.getWriter().write(status);
 		}
 	}
 
