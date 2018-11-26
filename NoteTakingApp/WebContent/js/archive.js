@@ -145,7 +145,6 @@ function unArchiveNote(){
 			$('.note:hidden').remove();
 			$('#modal').hide();	//Hide modal
 			$('#archivedNoteAlert').show();
-			checkIfHeaderHasNotes(header);
 			//setTimeout(function(){$('#archivedNoteAlert').hide();}, 1000);
 		},
 		error: function(){

@@ -157,7 +157,7 @@ function createNote(){
 
 //Hide clicked note and populate modal values with relevant info
 function noteClick(e){
-	if(!($(e.target).hasClass('.note')))
+	if(!($(e.target).hasClass('note')))
 	{
 		console.log("clicked other btn");
 		return;
