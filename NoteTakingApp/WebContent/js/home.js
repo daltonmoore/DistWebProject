@@ -159,8 +159,15 @@ function createNote(){
 function noteClick(e){
 	if(!($(e.target).hasClass('note')))
 	{
-		console.log("clicked other btn");
-		return;
+		if($(e.target).hasClass('noteContent') || $(e.target).hasClass('noteTitle'))
+		{
+			
+		}
+		else
+		{
+			console.log("clicked other btn");
+			return;
+		}
 	}
 	$(this).hide();   //hide this note
 	var inputs = $(this).find('input');			//get hidden inputs for this note
