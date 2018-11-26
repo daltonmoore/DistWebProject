@@ -37,14 +37,14 @@ function quickArchiveNote(){
 	$('#modal').hide();	//Hide modal
 	var archivednote = {
 		NoteID: $(this).parent().children('.noteId').val(),
-		NoteTitle: $(this).parent().children('.noteTitle').val(),
-		NoteContent: $(this).parent().children('.noteContent').val(),
+		NoteTitle: $(this).parent().children('.noteTitle').text(),
+		NoteContent: $(this).parent().children('.noteContent').text(),
 		Color: $(this).parent().children('.color').val(),   
 		AccountID: $(this).parent().children('#accountId').val(),
 		CategoryID: $(this).parent().children('.categoryId').val(),
 		StatusID: $(this).parent().children('.statusId').val()       
 	}
-	console.log($(this).parent().children('.statusId').val());
+	console.log($(this).parent().children('.noteTitle').val());
 
 	var note = $(this).parent();
 	$.ajax({
