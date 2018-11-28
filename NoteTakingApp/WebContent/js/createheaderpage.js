@@ -1,6 +1,8 @@
 var count = 0;
 
 $(function(){
+    $('tr:eq(1) td:last').children().hide()
+
     $("#createHeader").click(function(){
         var headername = $("#headerName").val();
         var valid = true;
@@ -45,7 +47,6 @@ $(function(){
 function removeHeader()
 {
     var value = $('tr:last td:first').text();
-
     $.ajax({
         url: "HeaderPage",
         type: "get",
