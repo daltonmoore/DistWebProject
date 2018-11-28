@@ -18,9 +18,25 @@
 }
 
 .container{
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 .close{
     float: left;
+}
+
+.input-group{
+	width: 50%;
+}
+
+#logoutbtn{
+	margin-bottom: 5;
+}
+
+.btn{
+	margin: 3;
+}
+
+#createHeader{
+	margin: 0;
 }

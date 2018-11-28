@@ -1,5 +1,5 @@
 .main{
-	margin-top: 40px;
+	margin-top: 50px;
 }
 
 #navigate{
@@ -16,6 +16,14 @@
 
 #cancelnote{
 	display:none;
+}
+
+#logoutbtn{
+	margin-bottom: 5;
+}
+
+.btn{
+	margin: 3;
 }
 
 .alert{
@@ -163,16 +171,6 @@ body{
 	padding-bottom:25px;
 }
 
-#savenote{
-	width: 50px; 
-	height: 25px;
-}
-
-#closenote{
-	width: 50px; 
-	height: 25px;
-}
-
 #optionbutton{
 	width: 80px;
 	height: 25px;
@@ -182,6 +180,11 @@ body{
 	opacity: 0.5;
 	padding: 5px;
 	transform: translate(0px, 10px);
+}
+
+.searchbar{
+	width: 20%;
+	display: inline;
 }
 
 #trash{
@@ -254,13 +257,20 @@ body{
 	grid-template-columns: 300px 300px 300px 300px 300px;
 }
 
+textarea{
+	resize: none;
+}
+
 #newnotetitle{
+	background-color: white;
 	border: 1px solid gray;
 	width: 215px;
 	display: block;
+	text-align: left;
 }
 
 #newnotebody{
+	text-align: left;
 	background-color: white;
 	border: 1px solid gray;
 	width: 215px;

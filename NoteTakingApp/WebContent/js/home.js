@@ -120,7 +120,7 @@ function createNote(){
 	var accountid = $('#accountId').val();
 	var category = $('#newnotecategory').val();
 	var title = $('#newnotetitle').val();
-	var body = $('#newnotebody').html();
+	var body = $('#newnotebody').val();
 	
 	//Json object
 	var newnote = {
@@ -147,7 +147,7 @@ function createNote(){
     				+'<input type="hidden" class="categoryId" value="'+ obj.CategoryID +'"/>\n'
     				+'<input type="hidden" class="color" value="'+ obj.Color +'"/>\n'
 					+'<input type="hidden" class="statusId" value="'+ obj.StatusID+'"/>\n'
-					+'<input type=\"button\" class=\"quickArchive\" value=\"Archive\">'
+					//+'<input type=\"button\" class=\"quickArchive\" value=\"Archive\">'
 					+'<input type=\"button\" style=\"display:none;\"class=\"quickTrash\" value=\"Trash\">'
 						+'</div>');
         	//Update noteClick
@@ -262,14 +262,14 @@ function closeNote(){
 function showNewNoteFields(){
 	$('#newnotebtn').css('display', 'none');
 	$('#newnotefields').css('display', 'block');
-	$('#createnote').css('display', 'block');
-	$('#cancelnote').css('display', 'block');
+	$('#createnote').css('display', 'inline');
+	$('#cancelnote').css('display', 'inline');
 }
 
 //Hide new note view
 function cancelNewNote(){
 	$('#newnotetitle').val("");
-	$('#newnotebody').html("");
+	$('#newnotebody').val("");
 	$('#newnotebtn').css('display', 'block');
 	$('#newnotefields').css('display', 'none');
 	$('#createnote').css('display', 'none');

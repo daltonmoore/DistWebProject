@@ -12,18 +12,18 @@
 		<header class="navbar-expand-lg fixed-top navbar-dark bg-dark">
 		<div class="headerItems"><a><span class="navbar-brand">Notetaking Web App</span></a></div>
 		<div class="headerItems">
-						<form class="headerItems" action="Navigate" method="get">
-							<input id="logoutbtn" type="submit" name="logout" value="Logout">
-						</form> 
-					</div>
+			<form class="headerItems" action="Navigate" method="get">
+				<input class="btn btn-primary" id="logoutbtn" type="submit" name="logout" value="Logout">
+			</form> 
+		</div>
 		<div class="nav-item accountName"><span>${user}</span></div>
 		</header>
 		
 		<nav id="navigate" class="nav flex-column">
 			<form action="Navigate" method="get">
-					<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
-					<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Edit Headers">
-					<input class="nav-link active" type="submit" name="GoToArchivePage" value="Archive">
+					<input class="nav-link active btn btn-dark" type="submit" name="GoToNotePage" value="Notes">
+					<input class="nav-link active btn btn-dark" type="submit" name="GoToCreateHeaderPage" value="Edit Headers">
+					<input class="nav-link active btn btn-dark" type="submit" name="GoToArchivePage" value="Archive">
 					<input id="username" type="hidden" name="username" value=${user}>
 			</form>
 		</nav>
@@ -55,8 +55,12 @@
 					</tr>
 				</#list>
 			</table>
-			<input type="text" id="headerName" placeholder="header name">
-			<button id="createHeader">Create</button>
+			<div class="input-group">
+				<input class="form-control" type="text" id="headerName" placeholder="header name">
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" id="createHeader">Create</button>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
