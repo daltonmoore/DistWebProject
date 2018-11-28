@@ -11,7 +11,6 @@
 	<body>
 		<header class="navbar-expand-lg fixed-top navbar-dark bg-dark">
 		<div class="headerItems"><a><span class="navbar-brand">Notetaking Web App</span></a></div>
-		<div class="headerItems"><input class="searchbar" placeholder="Search" type="text" name="search"></div>
 		<div class="headerItems">
 						<form class="headerItems" action="Navigate" method="get">
 							<input id="logoutbtn" type="submit" name="logout" value="Logout">
