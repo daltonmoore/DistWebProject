@@ -9,6 +9,17 @@
 	display: none;
 }
 
+.headerItems{
+	display: inline;
+}
+
+.accountName{
+	float: right; 
+	color: white;
+	padding-top: 6px;
+	 padding-right: 6px;
+}
+
 #sidebar {
     width: 250px;
     position: fixed;

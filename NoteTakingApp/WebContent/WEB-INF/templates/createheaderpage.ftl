@@ -9,18 +9,18 @@
 		<script src="js/createheaderpage.js"></script>
 	</head>
 	<body>
-		<nav class="navbar-expand-lg fixed-top navbar-dark bg-dark">
-			<ul class="navbar-nav">
-				<li><a><span class="navbar-brand">Brand</span></a></li>
-				<li><input class="searchbar" placeholder="Search" type="text" name="search"></li>
-				<li><span>Username</span></li>
-			</ul>
-		</nav>
-		<nav class="navbar" style="padding: 0px">
-			<form action="Navigate" method="post" accept-charset=utf-8>
+		<header class="navbar-expand-lg fixed-top navbar-dark bg-dark">
+		<div class="headerItems"><a><span class="navbar-brand">Notetaking Web App</span></a></div>
+		<div class="headerItems"><input class="searchbar" placeholder="Search" type="text" name="search"></div>
+		<div class="nav-item accountName"><span>${user}</span></div>
+		</header>
+		
+		<nav id="navigate" class="nav flex-column" style="position: fixed;">
+			<form action="Navigate" method="get">
 					<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
-					<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Create Header">
-					<input id="username" type="hidden" name="username" value=${username}>
+					<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Edit Headers">
+					<input class="nav-link active" type="submit" name="GoToArchivePage" value="Archive">
+					<input id="username" type="hidden" name="username" value=${user}>
 			</form>
 		</nav>
 		<div id="btnClosePrefab" style="display:none;">
