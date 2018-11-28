@@ -16,12 +16,21 @@ $(function(){
 	$('#modal-text').keyup(countCharacters);
 	$('#trash').click(deleteNote);
 	$('#archive').click(archiveNote);
+	//$('#logoutbtn').click(logout);
 
 	$('.header').each( function(i, header){
 		if($(header).children().children().length == 0)
 			$(header).hide();
 	});
 });
+
+function logout(){
+	$.ajax({
+		url: "Navigate",
+		method: "get",
+		data: {logout: true}
+	});
+}
 
 function noteHover(){
 	$(this).children('.quickTrash').show();

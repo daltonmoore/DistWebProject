@@ -13,12 +13,17 @@
 </head>
 <body>
 	<header class="navbar-expand-lg fixed-top navbar-dark bg-dark">
-		<div style="display: inline;"><a><span class="navbar-brand">Notetaking Web App</span></a></div>
-		<div style="display: inline;"><input class="searchbar" placeholder="Search" type="text" name="search"></div>
-		<div style="display: inline; float: right; color: white; padding-top: 6px; padding-right: 6px;" class="nav-item"><span>${user}</span></div>
+		<div class="headerItems"><a><span class="navbar-brand">Notetaking Web App</span></a></div>
+		<div class="headerItems"><input class="searchbar" placeholder="Search" type="text" name="search"></div>
+		<div class="headerItems">
+						<form class="headerItems" action="Navigate" method="get">
+							<input id="logoutbtn" type="submit" name="logout" value="Logout">
+						</form> 
+					</div>
+		<div class="nav-item accountName"><span>${user}</span></div>
 	</header>
 	
-	<nav id="navigate" class="nav flex-column" style="position: fixed;">
+	<nav id="navigate" class="nav flex-column">
 		<form action="Navigate" method="get">
 				<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
 				<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Edit Headers">

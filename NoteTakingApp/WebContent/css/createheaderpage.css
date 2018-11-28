@@ -8,3 +8,19 @@
 	padding-top: 6px;
 	 padding-right: 6px;
 }
+
+#navigate{
+	position: fixed;
+}
+
+#btnClosePrefab{
+    display: none;
+}
+
+.container{
+    margin-top: 40px;
+}
+
+.close{
+    float: left;
+}

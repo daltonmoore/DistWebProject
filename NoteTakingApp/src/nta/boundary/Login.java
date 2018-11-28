@@ -112,34 +112,38 @@ public class Login extends HttpServlet
 		
 		if(signin != null)
 		{
-			if(UserLogic.authenticateUser(username,userpassword))
+			SimpleHash root = new SimpleHash(db.build());
+			if(!username.contains("\'") && !userpassword.contains("\'"))
 			{
-				SimpleHash root = new SimpleHash(db.build());
-				usernameStorage = username;
-				int userid = UserLogic.getUserIdByUsername(username);
-				System.out.println("User ID: "+userid);
-				List<Notes> usernotes = NotesLogic.getNotesForAccountId(userid);
-				List<Category> categories = CategoryLogic.getCategoriesForAccountId(userid);
-				
-				for(int i =0; i < categories.size(); i++) {
-					System.out.println("Category:"+categories.get(i).getCategoryName());
-					System.out.println("AccountID:"+categories.get(i).getAccountID());
-					System.out.println("CategoryID:"+categories.get(i).getCategoryID());
+				if(UserLogic.authenticateUser(username,userpassword))
+				{
+					
+					usernameStorage = username;
+					int userid = UserLogic.getUserIdByUsername(username);
+					System.out.println("User ID: "+userid);
+					List<Notes> usernotes = NotesLogic.getNotesForAccountId(userid);
+					List<Category> categories = CategoryLogic.getCategoriesForAccountId(userid);
+					
+					for(int i =0; i < categories.size(); i++) {
+						System.out.println("Category:"+categories.get(i).getCategoryName());
+						System.out.println("AccountID:"+categories.get(i).getAccountID());
+						System.out.println("CategoryID:"+categories.get(i).getCategoryID());
+					}
+					
+					System.out.println(categories.size());
+					
+					root.put("userid", userid);
+					root.put("usernotes", usernotes);
+					root.put("categories", categories);
+					loadHomePage(request,response,root);
 				}
-				
-				System.out.println(categories.size());
-				
-				root.put("userid", userid);
-				root.put("usernotes", usernotes);
-				root.put("categories", categories);
-				loadHomePage(request,response,root);
+				else
+				{   
+					wrongPasswordOrUsername(request,response,root);
+				}
 			}
-			else
-			{   
-				SimpleHash root = new SimpleHash(db.build());
-				incorrectUsernameOrPassword = true;
-				root.put("incorrectUsernameOrPassword", incorrectUsernameOrPassword);
-		        loadSignInPage(request,response,root);
+			else {
+				wrongPasswordOrUsername(request,response,root);
 			}
 		}
 		
@@ -166,6 +170,12 @@ public class Login extends HttpServlet
 			
 			loadSignInPage(request,response,root);
 		}
+	}
+	
+	void wrongPasswordOrUsername(HttpServletRequest request, HttpServletResponse response, SimpleHash root) {
+		incorrectUsernameOrPassword = true;
+		root.put("incorrectUsernameOrPassword", incorrectUsernameOrPassword);
+		loadSignInPage(request,response,root);
 	}
 	
 	private void loadSignUpPage(HttpServletRequest request, HttpServletResponse response, SimpleHash root) {

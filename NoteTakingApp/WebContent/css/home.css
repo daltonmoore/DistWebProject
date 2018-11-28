@@ -2,6 +2,22 @@
 	margin-top: 40px;
 }
 
+#navigate{
+	position: fixed;
+}
+
+#newnotefields{
+	display:none;
+}
+
+#createnote{
+	display:none;
+}
+
+#cancelnote{
+	display:none;
+}
+
 .alert{
 	position: fixed;
 	bottom: 0;

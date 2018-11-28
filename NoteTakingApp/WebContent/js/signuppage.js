@@ -1,3 +1,9 @@
+$(function(){
+    $('.p').change(validatePassword);
+    $('.e').change(validateEmail);
+    $('.signup').submit(checkFields);
+});
+
 function validatePassword()
 {
     var password = document.getElementById("password");
@@ -19,5 +25,20 @@ function validateEmail()
         confirm_email.setCustomValidity("Emails Don't Match");
     } else {
         confirm_email.setCustomValidity('');
+    }
+}
+
+//this just makes sure there aren't any single quotes in any of the fields
+function checkFields(e){
+    var username = $('#username').val();
+    var password = $('#password').val();
+    var email = $('#email').val();
+    var firstname = $('#firstname').val();
+    var lastname = $('#lastname').val();
+
+    if(username.includes("\'") || password.includes("\'") ||email.includes("\'") ||firstname.includes("\'") ||lastname.includes("\'"))
+    {
+        alert('None of your fields can have \' in it');
+        e.preventDefault(e);
     }
 }

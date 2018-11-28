@@ -3,53 +3,8 @@
 <head>
 	<script src="js/signinpage.js"></script>
 	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" href="css/signinpage.css">
 	<title>User Login</title>
-	<style>
-		.login{
-			margin: 20px auto;
-    		width: 300px;
-    		padding: 30px 25px;
-  			background: white;
-  			border: 1px solid #c4c4c4;
-		}
-		.login-input {
-		  	width: 285px;
-		  	height: 50px;
-			margin-bottom: 25px;
-			padding-left:10px;
-			font-size: 15px;
-			background: #fff;
-			border: 1px solid #ccc;
-		  	border-radius: 4px;
-		}
-		h1.login-title {
-			margin: -28px -25px 25px;
-			padding: 15px 25px;
-			line-height: 30px;
-			font-size: 25px;
-			font-weight: 300;
-			color: #000;
-			text-align:center;
-			background: #fff;
-		}
-		.login-button {
-			width: 100%;
-			height: 50px;
-			padding: 0;
-			margin-bottom:25px;
-			font-size: 20px;
-			color: #fff;
-			text-align: center;
-			background: #f0776c;
-			border: 0;
-			border-radius: 5px;
-			cursor: pointer; 
-			outline:0;
-		}
-		.login-button:hover{
-			background: #8B2525;
-		}
-	</style>
 </head>
 <body>
 	<#assign x = incorrectUsernameOrPassword>

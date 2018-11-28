@@ -31,7 +31,7 @@ public class UserLogic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(rsPass.equals(password) && rsUsername.equals(username)) {
+		if(!username.isEmpty() && !password.isEmpty() && rsPass.equals(password) && rsUsername.equals(username)) {
 			valid = true;
 		}else { 
 			valid=false;

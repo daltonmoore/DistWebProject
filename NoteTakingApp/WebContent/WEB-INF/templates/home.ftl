@@ -15,10 +15,15 @@
 	<header class="navbar-expand-lg fixed-top navbar-dark bg-dark">
 		<div class="headerItems"><a><span class="navbar-brand">Notetaking Web App</span></a></div>
 		<div class="headerItems"><input class="searchbar" placeholder="Search" type="text" name="search"></div>
+		<div class="headerItems">
+			<form class="headerItems" action="Navigate" method="get">
+				<input id="logoutbtn" type="submit" name="logout" value="Logout">
+			</form>
+		</div>
 		<div class="nav-item accountName"><span>${user}</span></div>
 	</header>
 	
-	<nav id="navigate" class="nav flex-column" style="position: fixed;">
+	<nav id="navigate" class="nav flex-column">
 		<form action="Navigate" method="get">
 				<input class="nav-link active" type="submit" name="GoToNotePage" value="Notes">
 				<input class="nav-link active" type="submit" name="GoToCreateHeaderPage" value="Edit Headers">
@@ -32,7 +37,7 @@
 		
 		<div>
 			<button id="newnotebtn">Create New Note</button>
-			<div id="newnotefields" style="display:none">
+			<div id="newnotefields">
 				<input id="newnotetitle" type="text" placeholder="Note Title">
 				<div id="newnotebody" type="text" contenteditable="true"></div>
 				<select id="newnotecategory">
@@ -41,8 +46,8 @@
 					</#list>
 				</select>
 			</div>
-			<button id="createnote" style="display:none">Create</button>
-			<button id="cancelnote" style="display:none">Cancel</button>
+			<button id="createnote">Create</button>
+			<button id="cancelnote">Cancel</button>
 		</div>
 		
 		<#list categories as categories>	

@@ -86,6 +86,7 @@ public class Navigate extends HttpServlet
 		String goToNotePage = request.getParameter("GoToNotePage");
 		String goToArchivePage = request.getParameter("GoToArchivePage");
 		String submitHeaders = request.getParameter("submitHeaders");
+		String logout = request.getParameter("logout");
 		
 		if(goToCreateHeaderPage != null || submitHeaders != null)
 		{
@@ -98,6 +99,10 @@ public class Navigate extends HttpServlet
 		else if(goToArchivePage != null)
 		{
 			loadArchivePage(request, response);
+		}
+		else if(logout != null)
+		{
+			logoutUser(request, response);
 		}
 	}
 	
@@ -140,6 +145,12 @@ public class Navigate extends HttpServlet
 		processor.processTemplate(templatename,root,request,response);
 	}
 
+	void logoutUser(HttpServletRequest request, HttpServletResponse response) 
+	{
+		String templatename = "signinpage.ftl";
+		root.put("incorrectUsernameOrPassword", false);
+		processor.processTemplate(templatename,root,request,response);
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
