@@ -62,7 +62,7 @@
 								<input type="hidden" class="categoryId" value="${notes.categoryID}"/>
 								<input type="hidden" class="color" value="${notes.color}"/>
 								<input type="hidden" class="statusId" value="${notes.statusID}"/>
-								<input type="button" class="quickArchive" value="Archive">
+								<!--<input type="button" class="quickArchive" value="Archive">-->
 								<input type="button" class="quickTrash" value="Trash">
 							</div>
 						</#if>
